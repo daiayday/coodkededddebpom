@@ -228,6 +228,8 @@ local ray = Ray.new(origin, direction * size)
 local result = workspace:Raycast(ray.Origin, ray.Direction)
 
    if result and result.Instance.Parent == character then
+
+if not character:GetAttribute("Hiding") then
        kill:Destroy()
        wait(0.2)
 local player = game.Players.LocalPlayer
@@ -301,6 +303,7 @@ imageLabel:Destroy()
 red:Destroy()
 local hum = game.Players.LocalPlayer.Character.Humanoid
 hum:TakeDamage(100)
+end
 end
 end)
 end)
