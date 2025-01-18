@@ -1,0 +1,2388 @@
+spawn(function()
+print("something bad")
+end)
+
+
+-- Create the ScreenGui and Sprint Bar
+local player = game.Players.LocalPlayer
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = player.PlayerGui
+
+local sprintBarBackground = Instance.new("Frame")
+sprintBarBackground.Size = UDim2.new(0.5, 0, 0.05, 0)  -- Half of the screen width, small height
+sprintBarBackground.Position = UDim2.new(0.25, 0, 0, 0)  -- Centered at top
+sprintBarBackground.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+sprintBarBackground.Parent = screenGui
+
+local sprintBar = Instance.new("Frame")
+sprintBar.Size = UDim2.new(0, 0, 1, 0)  -- Width is dynamic, height fills the background
+sprintBar.BackgroundColor3 = Color3.fromRGB(0, 255, 0)  -- Green for the sprint bar
+sprintBar.Parent = sprintBarBackground
+
+-- Sprint and Stamina Variables
+local sprinting = false
+local maxStamina = 100  -- Maximum stamina
+local currentStamina = maxStamina  -- Starting stamina
+local staminaRegenRate = 5  -- How fast stamina regenerates per second
+local staminaDrainRate = 20  -- How fast stamina drains while sprinting
+local sprintSpeed = 20     -- Sprinting speed
+local walkSpeed = 15       -- Walking speed
+
+-- Function to update the sprint bar
+local function updateSprintBar()
+
+    sprintBar.Size = UDim2.new(currentStamina / maxStamina, 0, 1, 0)
+end
+
+-- Mobile Button for Sprinting
+local sprintButton = Instance.new("TextButton")
+sprintButton.Size = UDim2.new(0.2, 0, 0.1, 0)  -- Size of the button
+sprintButton.Position = UDim2.new(0.8, 0, 0.9, 0)  -- Position at bottom-right corner
+sprintButton.Text = "Sprint"
+sprintButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)  -- Green button
+sprintButton.Parent = screenGui
+
+-- Toggle Sprint on Button Tap
+sprintButton.MouseButton1Click:Connect(function()
+    sprinting = not sprinting  -- Toggle sprinting state
+    if sprinting and game.Players.LocalPlayer.Character.Humanoid.MoveDirection ~= Vector3.new(0, 0, 0) then
+        -- Change walk speed to sprint speed
+        player.Character.Humanoid.WalkSpeed = sprintSpeed
+    else
+        -- Revert to walking speed
+        player.Character.Humanoid.WalkSpeed = walkSpeed
+    end
+end)
+
+-- Function to handle sprinting logic with Heartbeat to avoid infinite loop
+local runService = game:GetService("RunService")
+
+runService.Heartbeat:Connect(function()
+    if sprinting then
+        -- Drain stamina while sprinting
+        if currentStamina > 0 then
+            currentStamina = currentStamina - staminaDrainRate * runService.Heartbeat:Wait() -- Wait time per frame
+        else
+        require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("Your Exhausted", true)
+            sprinting = false  -- Stop sprinting if no stamina
+            player.Character.Humanoid.WalkSpeed = walkSpeed -- Revert speed
+        end
+    else
+        -- Regenerate stamina while not sprinting
+        if currentStamina < maxStamina then
+            currentStamina = currentStamina + staminaRegenRate * runService.Heartbeat:Wait() -- Wait time per frame
+        end
+    end
+
+    -- Keep stamina within bounds
+    currentStamina = math.clamp(currentStamina, 0, maxStamina)
+    updateSprintBar()
+end)
+
+
+
+game.MaterialService.Use2022Materials = false
+
+
+spawn(function() -- lets spawn a fixer dont execute at door 2 or more
+        local p = game.ReplicatedStorage.GameData.LatestRoom.Value
+        if p >= 1 then
+              game.Players.LocalPlayer:Kick("Execute the script at door 1")
+        end
+end)
+
+
+
+
+
+
+local syncConnection = syncConnection;game:GetService("ReplicatedStorage").GameData.LatestRoom:GetPropertyChangedSignal("Value"):Wait()
+
+
+require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("Hardcore Initiated", true)
+
+wait(2)
+require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("Made By Secret (modeler) (artist) (scripter)", true)
+wait(2)
+require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("Credits to Noonie and Ping for Making the original Hardcore", true)
+wait(2)
+require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("Some Help with chat gpt (mabye with sprintbar and and a entity)", true)
+wait(2)
+require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("you wont come back", true)
+
+
+
+spawn(function()
+while task.wait(270) do
+if workspace:FindFirstChild("SeekMovingNewClone") 
+        or workspace.CurrentRooms:FindFirstChild("50") 
+        or workspace.CurrentRooms:FindFirstChild("100") then
+            repeat task.wait() until not workspace:FindFirstChild("SeekMovingNewClone") 
+                and not workspace.CurrentRooms:FindFirstChild("50") 
+                and not workspace.CurrentRooms:FindFirstChild("100")
+        end
+game:GetService("ReplicatedStorage").GameData.LatestRoom:GetPropertyChangedSignal("Value"):Wait()
+
+local function rebound()
+if workspace:FindFirstChild("SeekMovingNewClone") 
+        or workspace.CurrentRooms:FindFirstChild("50") 
+        or workspace.CurrentRooms:FindFirstChild("100") then
+            repeat task.wait() until not workspace:FindFirstChild("SeekMovingNewClone") 
+                and not workspace.CurrentRooms:FindFirstChild("50") 
+                and not workspace.CurrentRooms:FindFirstChild("100")
+        end
+wait(2.8)
+                        local function GetGitSound(GithubSnd, SoundName)
+                local url = GithubSnd
+                if not isfile(SoundName .. ".mp3") then
+                    writefile(SoundName .. ".mp3", game:HttpGet(url))
+                end
+                local sound = Instance.new("Sound")
+                sound.SoundId = (getcustomasset or getsynasset)(SoundName .. ".mp3")
+                return sound
+            end
+                             local thunda = GetGitSound("https://github.com/Brololto/Angler-sounds/blob/main/lv_0_20241221185002.mp3?raw=true", "thundas")
+                thunda.Parent = workspace
+                thunda.Volume = 5
+                thunda:Play()
+    task.wait(3.3)
+            ---====== Load spawner ======---
+
+local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+---====== Create entity ======---
+
+local entity = spawner.Create({
+	Entity = {
+		Name = "Rebound",
+		Asset = "rbxassetid://72955224106652",
+		HeightOffset = 2
+	},
+	Lights = {
+		Flicker = {
+			Enabled = false,
+			Duration = 1
+		},
+		Shatter = false,
+		Repair = false
+	},
+	Earthquake = {
+		Enabled = false
+	},
+	CameraShake = {
+		Enabled = true,
+		Range = 100,
+		Values = {1.5, 15, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
+	},
+	Movement = {
+		Speed = 100,
+		Delay = 2,
+		Reversed = true
+	},
+	Rebounding = {
+		Enabled = false,
+		Type = "Ambush", -- "Blitz"
+		Min = 1,
+		Max = 1,
+		Delay = 2
+	},
+	Damage = {
+		Enabled = false,
+		Range = 40,
+		Amount = 1
+	},
+	Crucifixion = {
+		Enabled = false,
+		Range = 40,
+		Resist = false,
+		Break = true
+	},
+	Death = {
+		Type = "Guiding", -- "Curious"
+		Hints = {"Death", "Hints", "Go", "Here"},
+		Cause = ""
+	}
+})
+
+---====== Debug entity ======---
+
+entity:SetCallback("OnSpawned", function()
+    print("Entity has spawned")
+    local ineedu = workspace:FindFirstChild("Rebound")
+                   local sound = GetGitSound("https://github.com/Brololto/Reboundmoving/blob/main/Screen_Recording_20230404-140647_Chrome%20(online-audio-converter.com).mp3?raw=true", "ud")
+                sound.Parent = ineedu.Rebound
+                sound.Volume = 9
+                sound:Play()
+local size = 35
+game:GetService("RunService").RenderStepped:Connect(function()
+local kill = workspace:FindFirstChild("Rebound")
+local origin = kill.Rebound.Position
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local HumanoidRootPart = character:WaitForChild("HumanoidRootPart")
+local direction = (HumanoidRootPart.Position - origin).Unit
+
+local ray = Ray.new(origin, direction * size)
+
+local result = workspace:Raycast(ray.Origin, ray.Direction)
+
+   if result and result.Instance.Parent == character then
+       kill:Destroy()
+       wait(0.2)
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "RandomImageGui"
+screenGui.Parent = playerGui
+
+local red = Instance.new("ImageLabel")
+red.Size = UDim2.new(8, 8, 8, 8)
+red.AnchorPoint = Vector2.new(0.5, 0.5)-- Adjust size (30% of screen width and height)
+red.Position = UDim2.new(0.5, 0, 0.5, 0)
+red.BackgroundColor3 = Color3.fromRGB(173, 216, 230) 
+red.BackgroundTransparency = 1 -- Make the background fully transparent
+red.Image = "rbxassetid://94547864377343" -- Set the image using a random Image ID
+red.ImageTransparency = 0
+red.ImageColor3 = Color3.new(0, 0, 0.9)
+red.Parent = screenGui
+
+-- Create the ImageLabel for displaying the image
+local imageLabel = Instance.new("ImageLabel")
+imageLabel.Size = UDim2.new(0, 0, 0, 0)
+imageLabel.AnchorPoint = Vector2.new(0.5, 0.5)-- Adjust size (30% of screen width and height)
+imageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+imageLabel.BackgroundColor3 = Color3.new(1, 0, 0, 0) 
+imageLabel.BackgroundTransparency = 1 -- Make the background fully transparent
+imageLabel.Image = "rbxassetid://136184103476873"  -- Set the image using a random Image ID
+imageLabel.ImageTransparency = 1
+imageLabel.Parent = screenGui
+
+
+-- Animation script
+local TweenService = game:GetService("TweenService")
+
+-- Define tween info
+local GetTimeSpeed = TweenInfo.new(0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+
+-- Create the animation
+local Anim = TweenService:Create(imageLabel, GetTimeSpeed, {Size = UDim2.new(0, 850, 0, 850)})
+
+
+
+local tran = TweenService:Create(imageLabel, GetTimeSpeed, {ImageTransparency = 0})
+
+
+-- Play the animation
+Anim:Play()
+tran:Play()
+                local scare = GetGitSound("https://github.com/Brololto/Angler-sounds/blob/main/lv_0_20241221185702.mp3?raw=true", "jr")
+                scare.Parent = workspace
+                scare.Volume = 5
+                scare:Play()
+              
+
+
+spawn(function()
+while wait() do
+red.Position = UDim2.new(1, 0, 0.9, 0.9)
+red.Position = UDim2.new(0.5, 0, 0.5, 0)
+end
+end)
+
+
+
+Anim.Completed:Wait()
+
+wait(0.3)
+imageLabel:Destroy()
+red:Destroy()
+local hum = game.Players.LocalPlayer.Character.Humanoid
+hum:TakeDamage(100)
+end
+end)
+end)
+
+entity:SetCallback("OnStartMoving", function()
+    print("Entity has started moving")
+end)
+
+entity:SetCallback("OnEnterRoom", function(room, firstTime)
+    if firstTime == true then
+        print("Entity has entered room: ".. room.Name.. " for the first time")
+    else
+        print("Entity has entered room: ".. room.Name.. " again")
+    end
+end)
+
+entity:SetCallback("OnLookAt", function(lineOfSight)
+	if lineOfSight == true then
+		print("Player is looking at entity")
+	else
+		print("Player view is obstructed by something")
+	end
+end)
+
+entity:SetCallback("OnRebounding", function(startOfRebound)
+    if startOfRebound == true then
+        print("Entity has started rebounding")
+	else
+        print("Entity has finished rebounding")
+	end
+end)
+
+entity:SetCallback("OnDespawning", function()
+    print("Entity is despawning")
+end)
+
+entity:SetCallback("OnDespawned", function()
+    print("Entity has despawned")
+end)
+
+entity:SetCallback("OnDamagePlayer", function(newHealth)
+	if newHealth == 0 then
+		print("Entity has killed the player")
+	else
+	print("YOU STUPID NI-")
+	end
+end)
+
+
+entity:Run()
+end
+
+
+
+
+            game.Lighting.MainColorCorrection.TintColor = Color3.fromRGB(61, 171, 98)
+            game.Lighting.MainColorCorrection.Contrast = 0.9
+            game.Lighting.MainColorCorrection.Saturation = -0.7
+
+            local tween = game:GetService("TweenService")
+            tween:Create(game.Lighting.MainColorCorrection, TweenInfo.new(5), {Contrast = 0}):Play()
+            tween:Create(game.Lighting.MainColorCorrection, TweenInfo.new(5), {Saturation = 0}):Play()
+            
+            local TweenService = game:GetService("TweenService")
+            local TW = TweenService:Create(game.Lighting.MainColorCorrection, TweenInfo.new(5), {TintColor = Color3.fromRGB(255, 255, 255)})
+            TW:Play()
+
+            local cue1 = Instance.new("Sound")
+            cue1.Parent = game.Workspace
+            cue1.Name = "Scream"
+            cue1.SoundId = "rbxassetid://9114397505"
+            local distort = Instance.new("DistortionSoundEffect")
+            distort.Parent = cue1
+            distort.Level = 1
+            local distort2 = Instance.new("DistortionSoundEffect")
+            distort2.Parent = cue1
+            distort2.Level = 1
+            local pitch = Instance.new("PitchShiftSoundEffect")
+            pitch.Parent = cue1
+            pitch.Octave = 0.5
+            local pitch2 = Instance.new("PitchShiftSoundEffect")
+            pitch2.Parent = cue1
+            pitch2.Octave = 0.5
+            local pitch3 = Instance.new("PitchShiftSoundEffect")
+            pitch3.Parent = cue1
+            pitch3.Octave = 0.5
+            cue1.Volume = 0.1
+            cue1:Play()
+
+            local cue2 = Instance.new("Sound")
+            cue2.Parent = game.Workspace
+            cue2.Name = "Spawn"
+            cue2.SoundId = "rbxassetid://9114221327"
+            cue2.Volume = 3
+            cue2:Play()
+
+            local CameraShaker = require(game.ReplicatedStorage.CameraShaker)
+            local camera = game.Workspace.CurrentCamera
+            local camShake = CameraShaker.new(Enum.RenderPriority.Camera.Value, function(shakeCf)
+                camera.CFrame = camera.CFrame * shakeCf
+            end)
+            camShake:Start()
+            camShake:ShakeOnce(25, 10, 0, 5.5, 1, 0)
+
+
+
+rebound()
+
+
+local maxrebounds = 3
+
+for i = 1, maxrebounds do
+wait(15)
+game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
+rebound()
+end
+end
+end)
+
+
+
+
+spawn(function() -- crash boi
+while task.wait(175) do
+if workspace:FindFirstChild("SeekMovingNewClone") 
+        or workspace.CurrentRooms:FindFirstChild("50") 
+        or workspace.CurrentRooms:FindFirstChild("100") then
+            repeat task.wait() until not workspace:FindFirstChild("SeekMovingNewClone") 
+                and not workspace.CurrentRooms:FindFirstChild("50") 
+                and not workspace.CurrentRooms:FindFirstChild("100")
+        end
+game:GetService("ReplicatedStorage").GameData.LatestRoom:GetPropertyChangedSignal("Value"):Wait()
+
+local function ripperdeath()
+-- Services
+local Players = game:GetService("Players")
+local Workspace = game:GetService("Workspace")
+local TweenService = game:GetService("TweenService")
+
+
+
+            
+-- Player and Character
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local HumanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+--Model Jumpscare
+local r = game:GetObjects("rbxassetid://76305076231751")[1] 
+r.Parent = Workspace
+
+
+
+
+
+spawn(function()
+    local Camera = workspace.CurrentCamera
+    Camera.CameraType = Enum.CameraType.Scriptable
+    local cameraPosition = Camera.CFrame.Position
+    local modelPosition = r:GetPivot().Position
+    local cool = TweenService:Create(Camera, TweenInfo.new(0.5), {CFrame = CFrame.new(cameraPosition, modelPosition)})
+    cool:Play()
+    cool.Completed:Wait()
+    game:GetService("RunService").RenderStepped:Connect(function()
+        local Camera = workspace.CurrentCamera
+    local cameraPosition = Camera.CFrame.Position
+    local modelPosition = r:GetPivot().Position
+    Camera.CFrame = CFrame.new(cameraPosition, modelPosition)
+    end)
+end)
+
+
+
+
+--Freeze movement
+spawn(function()
+while wait() do
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 0
+end
+end)
+
+--Jumpscare
+local bruh = workspace:FindFirstChild("Ripper")
+r:SetPrimaryPartCFrame(bruh.PrimaryPart.CFrame * CFrame.new(0, 1, 0))
+for i,v in pairs(r:GetDescendants()) do
+     if v:IsA("ParticleEmitter") then
+          v.Rate = 9999999
+     task.wait(0.1)
+     v.TimeScale = 0
+
+
+    end
+end
+
+wait(0.1)
+                        local function GetGitSound(GithubSnd, SoundName)
+                local url = GithubSnd
+                if not isfile(SoundName .. ".mp3") then
+                    writefile(SoundName .. ".mp3", game:HttpGet(url))
+                end
+                local sound = Instance.new("Sound")
+                sound.SoundId = (getcustomasset or getsynasset)(SoundName .. ".mp3")
+                return sound
+            end
+            
+            
+            
+local crash = GetGitSound("https://github.com/Brololto/Angler-sounds/blob/main/lv_0_20241221185918%20(1).mp3?raw=true", "Crashund")
+crash.Volume = 4
+crash.Parent = workspace
+crash:Play()
+wait(1)
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Create the ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "RandomImageGui"
+screenGui.Parent = playerGui
+
+local red = Instance.new("ImageLabel")
+red.Size = UDim2.new(3, 3, 3, 3)
+red.AnchorPoint = Vector2.new(0.5, 0.5)-- Adjust size (30% of screen width and height)
+red.Position = UDim2.new(0.5, 0, 0.5, 0)
+red.BackgroundColor3 = Color3.fromRGB(173, 216, 230) 
+red.BackgroundTransparency = 1 -- Make the background fully transparent
+red.Image = "rbxassetid://76637426417491" -- Set the image using a random Image ID
+red.ImageTransparency = 1
+red.Parent = screenGui
+                TweenService:Create(red, TweenInfo.new(0.5), {ImageTransparency = 0}):Play()
+
+spawn(function()
+while wait() do
+red.Position = UDim2.new(1, 0, 0.9, 0.9)
+wait()
+red.Position = UDim2.new(0.5, 0, 0.5, 0)
+end
+end)
+wait(2)
+                local hum = game.Players.LocalPlayer.Character.Humanoid
+                hum:TakeDamage(100)
+                r:Destroy()
+                crash:Stop()
+                local GetTimeSpeed = TweenInfo.new(0.5)
+                TweenService:Create(red, GetTimeSpeed, {ImageTransparency = 1}):Play()
+end
+
+
+local function shaker()
+            local CameraShaker = require(game.ReplicatedStorage.CameraShaker)
+            local camera = game.Workspace.CurrentCamera
+            local camShake = CameraShaker.new(Enum.RenderPriority.Camera.Value, function(shakeCf)
+                camera.CFrame = camera.CFrame * shakeCf
+            end)
+            camShake:Start()
+            camShake:ShakeOnce(8, 5, 0, 5.5, 1, 0)
+end
+
+
+--Service for moving and lights
+local TweenService = game:GetService("TweenService")
+
+--Lights--
+local Tweeninfo = TweenInfo.new(3, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+local color = {Color = Color3.new(1, 0, 0)} -- Use normalized color values
+
+
+for i, v in pairs(workspace.CurrentRooms:GetDescendants()) do
+    if v:IsA("Light") then
+        TweenService:Create(v, Tweeninfo, color):Play()
+    end
+    if v.Parent.Name == "LightFixture" then
+          TweenService:Create(v.Parent, Tweeninfo, color):Play()
+          end
+end
+
+---====== Load spawner ======---
+
+local dead = false
+local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+---====== Create entity ======---
+
+local entity = spawner.Create({
+	Entity = {
+		Name = "Ripper",
+		Asset = "rbxassetid://132675601442627",
+		HeightOffset = 4.6
+	},
+	Lights = {
+		Flicker = {
+			Enabled = false,
+			Duration = 1
+		},
+		Shatter = false,
+		Repair = false
+	},
+	Earthquake = {
+		Enabled = false
+	},
+	CameraShake = {
+		Enabled = true,
+		Range = 100,
+		Values = {1.5, 20, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
+	},
+	Movement = {
+		Speed = 180,
+		Delay = 9,
+		Reversed = false
+	},
+	Rebounding = {
+		Enabled = false,
+		Type = "Ambush", -- "Blitz"
+		Min = 1,
+		Max = 1,
+		Delay = 2
+	},
+	Damage = {
+		Enabled = false,
+		Range = 40,
+		Amount = 125
+	},
+	Crucifixion = {
+		Enabled = false,
+		Range = 40,
+		Resist = false,
+		Break = false
+	},
+	Death = {
+		Type = "Guiding", -- "Curious"
+		Hints = {"Death", "Hints", "Go", "Here"},
+		Cause = ""
+	}
+})
+
+---====== Debug entity ======---
+
+entity:SetCallback("OnSpawned", function()
+    print("Entity has spawned")
+    shaker()
+
+workspace.Ripper.Spawn:Play()
+local workspace = game:GetService("Workspace")
+local silence = workspace:FindFirstChild("Ripper")
+local Players = game:GetService("Players")
+
+
+
+            
+-- Player and Character
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local HumanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+local hitbox = 35
+local RunService = game:GetService("RunService")
+
+RunService.Heartbeat:Connect(function()
+local origin = silence.PrimaryPart.Position
+local direction = (HumanoidRootPart.Position - origin).Unit
+
+local ray = Ray.new(origin, direction * hitbox)
+
+local result = workspace:Raycast(ray.Origin, ray.Direction)
+
+     if result and result.Instance.Parent == character then
+      
+                if not player.Character:GetAttribute("Hiding") then
+                dead = true
+                      local Debris = game:GetService("Debris")
+                      Debris:AddItem(silence, 0.00000000000000001)
+                    ripperdeath() -- Execute your custom function
+                    end
+end
+
+end)
+end)
+
+entity:SetCallback("OnStartMoving", function()
+    print("Entity has started moving")
+wait(0.2)
+
+    wait(0.3)
+       local rippermoving = Instance.new("Sound")
+rippermoving.Volume = 9
+rippermoving.Parent = workspace.Ripper.Ripe
+rippermoving.SoundId = "rbxassetid://6963538865"
+rippermoving.PlaybackSpeed = 0.2
+rippermoving:Play()
+
+end)
+
+entity:SetCallback("OnEnterRoom", function(room, firstTime)
+    if firstTime == true then
+        print("Entity has entered room: ".. room.Name.. " for the first time")
+    else
+        print("Entity has entered room: ".. room.Name.. " again")
+
+    end
+end)
+
+entity:SetCallback("OnLookAt", function(lineOfSight)
+	if lineOfSight == true then
+		print("Player is looking at entity")
+	else
+		print("Player view is obstructed by something")
+	end
+end)
+
+entity:SetCallback("OnRebounding", function(startOfRebound)
+    if startOfRebound == true then
+        print("Entity has started rebounding")
+	else
+        print("Entity has finished rebounding")
+	end
+end)
+
+entity:SetCallback("OnDespawning", function()
+    print("Entity is despawning")
+end)
+
+entity:SetCallback("OnDespawned", function()
+    print("Entity has despawned")
+
+    if dead == false then
+          local despawn = Instance.new("Sound")
+     despawn.Parent = workspace
+     despawn.Volume = 5
+      despawn.SoundId = "rbxassetid://1837829565"
+      despawn:Play()
+   --Shaker
+            local CameraShaker = require(game.ReplicatedStorage.CameraShaker)
+            local camera = game.Workspace.CurrentCamera
+            local camShake = CameraShaker.new(Enum.RenderPriority.Camera.Value, function(shakeCf)
+                camera.CFrame = camera.CFrame * shakeCf
+            end)
+            camShake:Start()
+            camShake:ShakeOnce(5, 5, 0, 5.5, 1, 0)
+    workspace.CurrentRooms[game.ReplicatedStorage.GameData.LatestRoom.Value]:WaitForChild("Door").ClientOpen:FireServer()
+
+                ---====== Load achievement giver ======---
+local achievementGiver = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua"))()
+
+---====== Display achievement ======---
+achievementGiver({
+    Title = "Torn Apart",
+    Desc = "Don't leave to early",
+    Reason = "Encounter Ripper",
+    Image = "rbxassetid://85743086408147"
+})
+end
+end)
+
+entity:SetCallback("OnDamagePlayer", function(newHealth)
+	if newHealth == 0 then
+		print("Entity has killed the player")
+	else
+		print("Entity has damaged the player")
+	end
+end)
+
+entity:Run()
+end
+end)
+
+
+local function iceball()
+if workspace:FindFirstChild("SeekMovingNewClone") 
+        or workspace.CurrentRooms:FindFirstChild("50") 
+        or workspace.CurrentRooms:FindFirstChild("100") then
+            repeat task.wait() until not workspace:FindFirstChild("SeekMovingNewClone") 
+                and not workspace.CurrentRooms:FindFirstChild("50") 
+                and not workspace.CurrentRooms:FindFirstChild("100")
+        end
+local TweenService = game:GetService("TweenService")
+local TweenInfo = TweenInfo.new(3, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+local color = {Color = Color3.new(0, 0, 0.9)} -- Dark blue (normalized values)
+
+-- Script
+for i, v in pairs(workspace.CurrentRooms:GetDescendants()) do
+    if v:IsA("Light") then
+        TweenService:Create(v, TweenInfo, color):Play()
+    end  
+end
+--Shaker
+            local CameraShaker = require(game.ReplicatedStorage.CameraShaker)
+            local camera = game.Workspace.CurrentCamera
+            local camShake = CameraShaker.new(Enum.RenderPriority.Camera.Value, function(shakeCf)
+                camera.CFrame = camera.CFrame * shakeCf
+            end)
+            camShake:Start()
+            camShake:ShakeOnce(5, 5, 0, 5.5, 1, 0)
+local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+---====== Create entity ======---
+
+local entity = spawner.Create({
+	Entity = {
+		Name = "Cease",
+		Asset = "rbxassetid://121128782273259",
+		HeightOffset = 1
+	},
+	Lights = {
+		Flicker = {
+			Enabled = false,
+			Duration = 10
+		},
+		Shatter = false,
+		Repair = false
+	},
+	Earthquake = {
+		Enabled = false
+	},
+	CameraShake = {
+		Enabled = true,
+		Range = 10,
+		Values = {1.5, 15, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
+	},
+	Movement = {
+		Speed = 100,
+		Delay = 3,
+		Reversed = false
+	},
+	Rebounding = {
+		Enabled = false,
+		Type = "Ambush", -- "Blitz"
+		Min = 1,
+		Max = 1,
+		Delay = 2
+	},
+	Damage = {
+		Enabled = false,
+		Range = 45,
+		Amount = 125
+	},
+	Crucifixion = {
+		Enabled = false,
+		Range = 40,
+		Resist = false,
+		Break = true
+	},
+	Death = {
+		Type = "Guiding", -- "Curious"
+		Hints = {"Death", "Hints", "Go", "Here"},
+		Cause = ""
+	}
+})
+
+---====== Debug entity ======---
+
+entity:SetCallback("OnSpawned", function()
+    print("Entity has spawned")
+    local active = Instance.new("Sound")
+active.Parent = workspace
+active.Name = "spawn"
+active.SoundId = "rbxassetid://166047422"
+active.Volume = 3
+active:Play()
+wait(0.5)
+local active = Instance.new("Sound")
+active.Parent = workspace
+active.Name = "huge_explosion"
+active.SoundId = "rbxassetid://9125632539"
+active.Volume = 3
+active.PlaybackSpeed = 0.5
+active:Play()
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local HumanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+--Range
+local canSee = 100
+--Model
+local Ceas = workspace:FindFirstChild("Cease")
+local kill = Ceas:FindFirstChildWhichIsA("BasePart")
+ 
+ --loop death bru
+game:GetService("RunService").Heartbeat:Connect(function()
+local TargetDistance = (kill.Position - HumanoidRootPart.Position).Magnitude
+
+if TargetDistance <= canSee then
+if game.Players.LocalPlayer.Character.Humanoid.MoveDirection ~= Vector3.new(0, 0, 0) then
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
+end
+end
+end)
+end)
+
+entity:SetCallback("OnStartMoving", function()
+    print("Entity has started moving")
+end)
+
+entity:SetCallback("OnEnterRoom", function(room, firstTime)
+    if firstTime == true then
+        print("Entity has entered room: ".. room.Name.. " for the first time")
+    else
+        print("Entity has entered room: ".. room.Name.. " again")
+    end
+end)
+
+entity:SetCallback("OnLookAt", function(lineOfSight)
+	if lineOfSight == true then
+		print("Player is looking at entity")
+	else
+		print("Player view is obstructed by something")
+	end
+end)
+
+entity:SetCallback("OnRebounding", function(startOfRebound)
+    if startOfRebound == true then
+        print("Entity has started rebounding")
+	else
+        print("Entity has finished rebounding")
+	end
+end)
+
+entity:SetCallback("OnDespawning", function()
+    print("Entity is despawning")
+     kill:Destroy()
+end)
+
+entity:SetCallback("OnDespawned", function()
+    print("Entity has despawned")
+        workspace.CurrentRooms[game.ReplicatedStorage.GameData.LatestRoom.Value]:WaitForChild("Door").ClientOpen:FireServer()
+    kill:Destroy()
+end)
+
+entity:SetCallback("OnDamagePlayer", function(newHealth)
+	if newHealth == 0 then
+		print("Entity has killed the player")
+	else
+		print("Entity has damaged the player")
+	end
+end)
+
+
+entity:Run()
+end
+
+
+
+spawn(function() --cease
+while task.wait() do
+if workspace:FindFirstChild("RushMoving") then
+wait(40)
+wait(0.5)
+iceball()
+end
+end
+end)
+
+
+
+
+
+local function Shocker()
+if workspace:FindFirstChild("SeekMovingNewClone") 
+        or workspace.CurrentRooms:FindFirstChild("50") 
+        or workspace.CurrentRooms:FindFirstChild("100") then
+            repeat task.wait() until not workspace:FindFirstChild("SeekMovingNewClone") 
+                and not workspace.CurrentRooms:FindFirstChild("50") 
+                and not workspace.CurrentRooms:FindFirstChild("100")
+        end
+local TweenService = game:GetService("TweenService")
+local Players = game:GetService("Players")
+local Workspace = game:GetService("Workspace")
+local RunService = game:GetService("RunService")
+
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local HumanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+-- Socket model
+local s = game:GetObjects("rbxassetid://123057474039786")[1]
+s.Parent = Workspace
+
+
+if not s.PrimaryPart then
+   s.PrimaryPart = s:FindFirstChildWhichIsA("BasePart")
+end
+
+local function hit()
+    local hum = game.Players.LocalPlayer.Character.Humanoid
+    if hum then
+        hum:TakeDamage(30)
+    end
+end
+
+
+local tweenInfo = TweenInfo.new(0.3)
+local function comehere()
+local badge = false
+    if s.PrimaryPart then
+        local tween = TweenService:Create(s.PrimaryPart, tweenInfo, {CFrame = HumanoidRootPart.CFrame})
+        tween:Play()
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 0
+        workspace.Shocker.shock.scawy.Parent = Workspace
+        workspace.scawy:Play()
+tween.Completed:Wait()
+wait(0.2) 
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 15
+                    s:Destroy()
+                   
+                    local CameraShaker = require(game.ReplicatedStorage.CameraShaker)
+            local camera = game.Workspace.CurrentCamera
+            local camShake = CameraShaker.new(Enum.RenderPriority.Camera.Value, function(shakeCf)
+                camera.CFrame = camera.CFrame * shakeCf
+            end)
+            camShake:Start()
+            camShake:ShakeOnce(7, 8, 0, 5.5, 1, 0)
+
+    end
+end
+
+
+if s.PrimaryPart then
+    s:SetPrimaryPartCFrame(HumanoidRootPart.CFrame * CFrame.new(0, 0, -6))
+end
+
+
+
+spawn(function()
+    wait(2.88)
+        local look, onScreen = workspace.CurrentCamera:WorldToScreenPoint(s.PrimaryPart.Position)
+        if onScreen then
+            comehere()
+            wait(0.3)
+            hit()
+            else
+                    s.PrimaryPart.CanCollide = false
+            s.PrimaryPart.Anchored = false
+            wait(1)
+            s:Destroy()
+        end
+end)
+
+
+spawn(function()
+while task.wait() do
+        local seen, onSight = workspace.CurrentCamera:WorldToScreenPoint(s.PrimaryPart.Position)
+        if not onSight then
+        
+        s.PrimaryPart.CanCollide = false
+          s.PrimaryPart.Anchored = false
+          wait(1)
+          s:Destroy()
+
+           end
+           end
+           end)
+
+
+
+
+
+end
+
+
+
+
+spawn(function() -- Shocker
+while task.wait(math.random(10, 100)) do
+Shocker()
+end
+end)
+
+
+
+
+spawn(function() --remade trash frostbite
+while task.wait(249) do
+if workspace:FindFirstChild("SeekMovingNewClone") 
+        or workspace.CurrentRooms:FindFirstChild("50") 
+        or workspace.CurrentRooms:FindFirstChild("100") then
+            repeat task.wait() until not workspace:FindFirstChild("SeekMovingNewClone") 
+                and not workspace.CurrentRooms:FindFirstChild("50") 
+                and not workspace.CurrentRooms:FindFirstChild("100")
+        end
+game:GetService("ReplicatedStorage").GameData.LatestRoom:GetPropertyChangedSignal("Value"):Wait()
+local function GetGitSound(GithubSnd, SoundName)
+                local url = GithubSnd
+                if not isfile(SoundName .. ".mp3") then
+                    writefile(SoundName .. ".mp3", game:HttpGet(url))
+                end
+                local sound = Instance.new("Sound")
+                sound.SoundId = (getcustomasset or getsynasset)(SoundName .. ".mp3")
+                return sound
+            end
+
+local s = game:GetObjects("rbxassetid://109016442861859")[1]
+s.Parent = workspace
+if not s.PrimaryPart then
+  s.PrimaryPart = s:FindFirstChildWhichIsA("BasePart")
+  end
+s.PrimaryPart.Anchored = true
+ s.PrimaryPart.CanCollide = false
+ 
+ 
+ 
+
+local Players = game:GetService("Players")
+
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local HumanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+
+
+local workspace = game:GetService("Workspace")
+local silence = workspace:FindFirstChild("Frostbite")
+local hitbox = 20
+
+if not silence then
+    warn("Model 'Silence' not found in Workspace!")
+    return
+end
+
+local RunService = game:GetService("RunService")
+
+RunService.Heartbeat:Connect(function()
+    for _, player in pairs(game.Players:GetPlayers()) do
+        if player.Character and player.Character:FindFirstChild("HumanoidRootPart") and player.Character:FindFirstChild("Humanoid") then
+            local range = (silence.PrimaryPart.Position - player.Character.HumanoidRootPart.Position).Magnitude
+            if range <= hitbox then
+                                              local CameraShaker = require(game.ReplicatedStorage.CameraShaker)
+            local camera = game.Workspace.CurrentCamera
+            local camShake = CameraShaker.new(Enum.RenderPriority.Camera.Value, function(shakeCf)
+                camera.CFrame = camera.CFrame * shakeCf
+            end)
+            camShake:Start()
+            camShake:ShakeOnce(7, 8, 0, 5.5, 1, 0)
+                end
+            end
+        end
+end)
+
+
+local latestRoom = game.ReplicatedStorage.GameData.LatestRoom.Value
+
+local current = game.Workspace.CurrentRooms:FindFirstChild(latestRoom)
+
+
+s.PrimaryPart.Position = current.Parts.Floor.Position + Vector3.new(0, 7, 2)
+
+
+task.wait(0.00001)
+ workspace.Frostbite.Part.Attachment.face.Enabled = false
+workspace.Frostbite.Part.Attachment.Heylois.Enabled = false
+workspace.Frostbite.Part.Attachment.BlackTrail.Enabled = false
+workspace.Frostbite.Part.Attachment.BlackTrai2l.Enabled = true
+workspace.Frostbite.Part.Attachment.BlackTrai3l.Enabled = true
+                local frosty = workspace:FindFirstChild("Frostbite")
+                local frostnew = GetGitSound("https://github.com/Brololto/Whisperer-sound/blob/main/lv_0_20241219192635.mp3?raw=true", "new")
+                frostnew.Parent = workspace.Frostbite.Part
+                frostnew.Volume = 5
+                frostnew:Play()
+
+wait(10)
+workspace.Frostbite.Part["Ambience"]:Play()
+workspace.Frostbite.Part["AmbienceFar"]:Play()
+workspace.Frostbite.Part.Attachment.face.Enabled = true
+workspace.Frostbite.Part.Attachment.Heylois.Enabled = true
+workspace.Frostbite.Part.Attachment.BlackTrail.Enabled = true
+local kill = true
+spawn(function()
+wait(1)
+    while true do
+        
+        if kill == false then
+              break
+        end
+
+
+        local player = game.Players.LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait() -- Ensure character is loaded
+        local hum = character.Humanoid
+
+        if hum then
+
+            local lighter = character:FindFirstChild("Lighter")
+            if not lighter then
+              hum:TakeDamage(5)
+            end
+            if lighter then
+
+                local blid = lighter:FindFirstChild("Handle")
+                local holder = blid:FindFirstChild("EffectsHolder")
+                if holder then
+                    local attach = holder:FindFirstChild("AttachOn")
+                    if attach then
+
+                        local emitter = attach:FindFirstChild("FireParticles")
+                        if not emitter.Enabled then
+                            hum:TakeDamage(5) 
+                        end
+                    end
+                end
+            end
+
+
+        end
+     
+
+        wait(1)
+    end
+end)
+
+
+
+game:GetService("ReplicatedStorage").GameData.LatestRoom:GetPropertyChangedSignal("Value"):Wait()
+kill = false
+ workspace.Frostbite.Part.Attachment.face.Enabled = false
+workspace.Frostbite.Part.Attachment.Heylois.Enabled = false
+workspace.Frostbite.Part.Attachment.BlackTrail.Enabled = false
+frostnew:Stop()
+            local TweenService = game:GetService("TweenService")
+local TweenInfo = TweenInfo.new(3, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+local color = {Color = Color3.new(0, 0, 1)} -- Dark blue (normalized values)
+
+-- Script
+for i, v in pairs(workspace.CurrentRooms:GetDescendants()) do
+    if v:IsA("Light") then
+        TweenService:Create(v, TweenInfo, color):Play()
+    end  
+end                   
+
+local poopy = Instance.new("Part")
+poopy.Parent = workspace
+poopy.Transparency = 1
+poopy.CFrame = frosty.Part.CFrame
+poopy.Anchored = true
+poopy.CanCollide = false
+
+                local despawn = GetGitSound("https://github.com/Brololto/Balltest/blob/main/lv_0_20241219223727.mp3?raw=true", "rawmeat")
+                despawn.Parent = poopy
+                despawn.Volume = 5
+                despawn:Play()
+                for i,v in pairs(workspace.Frostbite:GetDescendants()) do
+                      if v:IsA("Sound") then
+                           v:Destroy()
+                         end
+                         end
+                         
+
+                wait(5)
+    workspace.Frostbite:Destroy()
+    wait(20)
+     poopy:Destroy()
+end
+end)
+
+
+
+
+spawn(function() --oh dear god man
+while task.wait(350) do
+        if workspace.CurrentRooms:FindFirstChild("50") 
+        or workspace.CurrentRooms:FindFirstChild("100") then
+            repeat task.wait() until not workspace.CurrentRooms:FindFirstChild("50") 
+                and not workspace.CurrentRooms:FindFirstChild("100")
+        end
+      
+local gotBadge = true
+ local function GetGitSound(GithubSnd, SoundName)
+                local url = GithubSnd
+                if not isfile(SoundName .. ".mp3") then
+                    writefile(SoundName .. ".mp3", game:HttpGet(url))
+                end
+                local sound = Instance.new("Sound")
+                sound.SoundId = (getcustomasset or getsynasset)(SoundName .. ".mp3")
+                return sound
+            end
+  local Players = game:GetService("Players")
+
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local HumanoidRootPart = character:WaitForChild("HumanoidRootPart")
+local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+---====== Create entity ======---
+
+local entity = spawner.Create({
+	Entity = {
+		Name = "Deer",
+		Asset = "rbxassetid://86055776714285",
+		HeightOffset = 0
+	},
+	Lights = {
+		Flicker = {
+			Enabled = true,
+			Duration = 10
+		},
+		Shatter = true,
+		Repair = false
+	},
+	Earthquake = {
+		Enabled = false
+	},
+	CameraShake = {
+		Enabled = true,
+		Range = 100,
+		Values = {1.5, 15, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
+	},
+	Movement = {
+		Speed = 20,
+		Delay = 3,
+		Reversed = false
+	},
+	Rebounding = {
+		Enabled = false,
+		Type = "Ambush", -- "Blitz"
+		Min = 1,
+		Max = 1,
+		Delay = 2
+	},
+	Damage = {
+		Enabled = false,
+		Range = 15,
+		Amount = 125
+	},
+	Crucifixion = {
+		Enabled = false,
+		Range = 40,
+		Resist = false,
+		Break = true
+	},
+	Death = {
+		Type = "Guiding", -- "Curious"
+		Hints = {"Run", "Run", "Run", "the god of deer"},
+		Cause = ""
+	}
+})
+
+---====== Debug entity ======---
+
+entity:SetCallback("OnSpawned", function()
+    print("Entity has spawned")
+
+     local followed = GetGitSound("https://github.com/Tinkgy111/Bang/blob/main/followed.mp3?raw=true","chase")
+    followed.Parent = workspace.Deer
+    followed.Volume = 3
+	followed:Play()
+local workspace = game:GetService("Workspace")
+local silence = workspace:FindFirstChild("Deer")
+silence.PrimaryPart.CanCollide = false
+local hitbox = 25
+
+if not silence then
+    warn("Model 'Silence' not found in Workspace!")
+    return
+end
+
+local RunService = game:GetService("RunService")
+
+RunService.Heartbeat:Connect(function()
+    for _, player in pairs(game.Players:GetPlayers()) do
+        if player.Character and player.Character:FindFirstChild("HumanoidRootPart") and player.Character:FindFirstChild("Humanoid") then
+            local range = (silence.PrimaryPart.Position - player.Character.HumanoidRootPart.Position).Magnitude
+            if range <= hitbox then
+            local v = game.Players.LocalPlayer
+               if not v.Character:GetAttribute("Hiding") then
+                              gotBadge = false
+                     RunService.RenderStepped:Connect(function()
+		  local TweenService = game:GetService("TweenService")
+		
+		local time = TweenInfo.new(0.8)
+		local mod = workspace:FindFirstChild("Deer")
+		local real = mod.RushNew
+		
+		TweenService:Create(real, time, {CFrame = HumanoidRootPart.CFrame}):Play()
+		end)
+                end
+            end
+        end
+    end
+end)
+end)
+
+entity:SetCallback("OnStartMoving", function()
+    print("Entity has started moving")
+local workspace = game:GetService("Workspace")
+local silenc = workspace:FindFirstChild("Deer")
+local hibox = 60
+
+if not silenc then
+    warn("Model 'Silence' not found in Workspace!")
+    return
+end
+
+local RunService = game:GetService("RunService")
+
+RunService.Heartbeat:Connect(function()
+    for _, playe in pairs(game.Players:GetPlayers()) do
+        if playe.Character and playe.Character:FindFirstChild("HumanoidRootPart") and playe.Character:FindFirstChild("Humanoid") then
+            local rane = (silenc.PrimaryPart.Position - playe.Character.HumanoidRootPart.Position).Magnitude
+            if rane <= hibox then
+            local v = game.Players.LocalPlayer
+               if v.Character:GetAttribute("Hiding") then
+               gotBadge = false
+                     RunService.RenderStepped:Connect(function() -- Chasing
+		  local TweenService = game:GetService("TweenService")
+		
+		local timer = TweenInfo.new(0.8)
+		local md = workspace:FindFirstChild("Deer")
+		local reale = md.RushNew
+
+		
+		local fakjayman = TweenService:Create(reale, timer, {CFrame = HumanoidRootPart.CFrame})
+		fakjayman:Play()
+	    fakejayman.Completed:Wait()
+	    game.Players.LocalPlayer.Character.Humanoid.Health = 0
+		end)
+                end
+            end
+        end
+    end
+end)
+end)
+
+entity:SetCallback("OnEnterRoom", function(room, firstTime)
+    if firstTime == true then
+        print("Entity has entered room: ".. room.Name.. " for the first time")
+    else
+        print("Entity has entered room: ".. room.Name.. " again")
+    end
+end)
+
+entity:SetCallback("OnLookAt", function(lineOfSight)
+	if lineOfSight == true then
+	else
+		print("why he not look at me am i ugly?")
+	end
+end)
+
+entity:SetCallback("OnRebounding", function(startOfRebound)
+    if startOfRebound == true then
+        print("Entity has started rebounding")
+	else
+        print("Entity has finished rebounding")
+	end
+end)
+
+entity:SetCallback("OnDespawning", function()
+    print("Entity is despawning")
+     workspace.Deer:Destroy()
+         if gotBadge == true then
+                    ---====== Load achievement giver ======---
+local achievementGiver = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Custom%20Achievements/Source.lua"))()
+
+---====== Display achievement ======---
+achievementGiver({
+    Title = "Last Chance Too Look Away",
+    Desc = "Why are you running?",
+    Reason = "Survive the rare Entity called Dear God",
+    Image = "rbxassetid://114825307168774"
+})
+end
+end)
+
+entity:SetCallback("OnDespawned", function()
+    print("Entity has despawned")
+
+end)
+
+entity:SetCallback("OnDamagePlayer", function(newHealth)
+	if newHealth == 0 then
+		print("Entity has killed the player")
+	else
+	
+	end
+end)
+
+
+entity:Run()
+end
+end)
+
+
+
+
+spawn(function() --hes coming bru
+while task.wait(540) do
+if workspace:FindFirstChild("SeekMovingNewClone") 
+        or workspace.CurrentRooms:FindFirstChild("50") 
+        or workspace.CurrentRooms:FindFirstChild("100") then
+            repeat task.wait() until not workspace:FindFirstChild("SeekMovingNewClone") 
+                and not workspace.CurrentRooms:FindFirstChild("50") 
+                and not workspace.CurrentRooms:FindFirstChild("100")
+        end
+local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+---====== Create entity ======---
+
+local entity = spawner.Create({
+	Entity = {
+		Name = "Silence",
+		Asset = "rbxassetid://85595314966413",
+		HeightOffset = 0
+	},
+	Lights = {
+		Flicker = {
+			Enabled = false,
+			Duration = 10
+		},
+		Shatter = true,
+		Repair = false
+	},
+	Earthquake = {
+		Enabled = false
+	},
+	CameraShake = {
+		Enabled = false,
+		Range = 10,
+		Values = {1.5, 15, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
+	},
+	Movement = {
+		Speed = 50,
+		Delay = 0,
+		Reversed = false
+	},
+	Rebounding = {
+		Enabled = false,
+		Type = "Ambush", -- "Blitz"
+		Min = 1,
+		Max = 1,
+		Delay = 2
+	},
+	Damage = {
+		Enabled = true,
+		Range = 39,
+		Amount = 125
+	},
+	Crucifixion = {
+		Enabled = false,
+		Range = 40,
+		Resist = false,
+		Break = true
+	},
+	Death = {
+		Type = "Guiding", -- "Curious"
+		Hints = {"Death", "Hints", "Go", "Here"},
+		Cause = ""
+	}
+})
+
+---====== Debug entity ======---
+
+entity:SetCallback("OnSpawned", function()
+    print("Entity has spawned")
+end)
+
+entity:SetCallback("OnStartMoving", function()
+    print("Entity has started moving")
+end)
+
+entity:SetCallback("OnEnterRoom", function(room, firstTime)
+    if firstTime == true then
+        print("Entity has entered room: ".. room.Name.. " for the first time")
+    else
+        print("Entity has entered room: ".. room.Name.. " again")
+    end
+end)
+
+entity:SetCallback("OnLookAt", function(lineOfSight)
+	if lineOfSight == true then
+		print("Player is looking at entity")
+	else
+		print("Player view is obstructed by something")
+	end
+end)
+
+entity:SetCallback("OnRebounding", function(startOfRebound)
+    if startOfRebound == true then
+        print("Entity has started rebounding")
+	else
+        print("Entity has finished rebounding")
+	end
+end)
+
+entity:SetCallback("OnDespawning", function()
+    print("Entity is despawning")
+end)
+
+entity:SetCallback("OnDespawned", function()
+    print("Entity has despawned")
+end)
+
+entity:SetCallback("OnDamagePlayer", function(newHealth)
+	if newHealth == 0 then
+		print("Entity has killed the player")
+	else
+		print("Entity has damaged the player")
+	end
+end)
+
+
+entity:Run()
+end
+end)
+
+
+
+
+
+
+
+spawn(function() -- A-60
+while task.wait(650) do
+print("A-60 is here!!!!")
+if workspace:FindFirstChild("SeekMovingNewClone") 
+        or workspace.CurrentRooms:FindFirstChild("50") 
+        or workspace.CurrentRooms:FindFirstChild("100") then
+            repeat task.wait() until not workspace:FindFirstChild("SeekMovingNewClone") 
+                and not workspace.CurrentRooms:FindFirstChild("50") 
+                and not workspace.CurrentRooms:FindFirstChild("100")
+        end
+
+  local function GetGitSound(GithubSnd, SoundName)
+                local url = GithubSnd
+                if not isfile(SoundName .. ".mp3") then
+                    writefile(SoundName .. ".mp3", game:HttpGet(url))
+                end
+                local sound = Instance.new("Sound")
+                sound.SoundId = (getcustomasset or getsynasset)(SoundName .. ".mp3")
+                return sound
+            end
+            local debounce = false
+---====== Load spawner ======---
+
+local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+
+---====== Create entity ======---
+
+local entity = spawner.Create({
+	Entity = {
+		Name = "A60",
+		Asset = "rbxassetid://85817097129909",
+		HeightOffset = 3
+	},
+	Lights = {
+		Flicker = {
+			Enabled = false,
+			Duration = 1
+		},
+		Shatter = false,
+		Repair = false
+	},
+	Earthquake = {
+		Enabled = false
+	},
+	CameraShake = {
+		Enabled = true,
+		Range = 200,
+		Values = {3, 20, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
+	},
+	Movement = {
+		Speed = 267,
+		Delay = 5,
+		Reversed = false
+	},
+	Rebounding = {
+		Enabled = true,
+		Type = "Ambush", -- "Blitz"
+		Min = 1,
+		Max = 5,
+		Delay = 2
+	},
+	Damage = {
+		Enabled = false,
+		Range = 40,
+		Amount = 1
+	},
+	Crucifixion = {
+		Enabled = false,
+		Range = 40,
+		Resist = false,
+		Break = false
+	},
+	Death = {
+		Type = "Guiding", -- "Curious"
+		Hints = {"Death", "Hints", "Go", "Here"},
+		Cause = ""
+	}
+})
+
+---====== Debug entity ======---
+
+entity:SetCallback("OnSpawned", function()
+    print("Entity has spawned")
+
+-- Get a reference to the object and its Attachment in the Workspace
+local part = workspace:WaitForChild("A60")
+local object = part:WaitForChild("Head") -- Replace "MyObjectName" with the name of your object
+local attachment = object:WaitForChild("Attachment")  -- Get the Attachment attached to the object
+local particleEmitter = attachment:WaitForChild("Image")  -- Get the ParticleEmitter attached to the Attachment
+
+-- Loop to continuously change the particle texture
+while true do
+
+    -- Change the particle texture to different asset IDs one by one
+    particleEmitter.Texture = "rbxassetid://192267375"  -- First texture
+        particleEmitter.Rate = 100
+    wait()  -- Wait for 0.1 seconds
+    
+    particleEmitter.Texture = "rbxassetid://1972219024"  -- Second texture
+    wait()  -- Wait for 0.1 seconds
+    
+    particleEmitter.Texture = "rbxassetid://1822114127"  -- Third texture
+    wait()  -- Wait for 0.1 seconds
+    
+    particleEmitter.Texture = "rbxassetid://3413871766"  -- Fourth texture
+    wait()  -- Wait for 0.1 seconds
+    
+    particleEmitter.Texture = "rbxassetid://3354536350"  -- Fifth texture
+    wait()  -- Wait for 0.1 seconds
+    
+    particleEmitter.Texture = "http://www.roblox.com/asset/?id=17865063"  -- Sixth texture (URL format)
+    wait()  -- Wait for 0.1 seconds
+    
+    particleEmitter.Texture = "rbxassetid://4749623118"  -- Seventh texture
+    wait()  -- Wait for 0.1 seconds
+    
+    particleEmitter.Texture = "rbxassetid://1857893092"  -- Eighth texture
+    wait()  -- Wait for 0.1 seconds
+    
+    particleEmitter.Texture = "rbxassetid://4508624823"  -- Ninth texture
+    wait()  -- Wait for 0.1 seconds
+    
+    particleEmitter.Texture = "rbxassetid://6309704436"  -- Tenth texture
+    wait()  -- Wait for 0.1 seconds
+    
+    particleEmitter.Texture = "rbxassetid://10458678325"  -- Eleventh texture
+    wait()  -- Wait for 0.1 seconds
+end
+
+
+end)
+
+entity:SetCallback("OnStartMoving", function()
+    print("Entity has started moving")
+    wait(3)
+
+spawn(function()
+while task.wait() do
+      if debounce == true then
+            break
+      end
+      
+    local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local HumanoidRootPart = character:WaitForChild("HumanoidRootPart")
+        local womp = workspace:FindFirstChild("A60")
+        local wompwomp = womp:FindFirstChild("Head")
+        local origin = wompwomp.Position
+        local direction = (HumanoidRootPart.Position - origin).Unit
+        
+        local ray = Ray.new(origin, direction * 50)
+        
+        local canSeeTarget = workspace:Raycast(ray.Origin, ray.Direction)
+       
+           if canSeeTarget and canSeeTarget.Instance.Parent == character then 
+               if not character:GetAttribute("Hiding") then
+               debounce = true
+               for i,v in pairs(workspace.A60:GetDescendants()) do
+	     if v:IsA("Sound") then
+	              v:Stop()
+	end
+	end
+	                 local CameraShaker = require(game.ReplicatedStorage.CameraShaker)
+            local camera = game.Workspace.CurrentCamera
+            local camShake = CameraShaker.new(Enum.RenderPriority.Camera.Value, function(shakeCf)
+                camera.CFrame = camera.CFrame * shakeCf
+            end)
+            camShake:Start()
+            camShake:ShakeOnce(10, 10, 0, 5.5, 1, 0)
+	local RunService = game:GetService("RunService")
+
+-- Get the player and their HumanoidRootPart
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+-- Get the entity model
+
+
+game:GetService("RunService").RenderStepped:Connect(function()
+local entity = workspace:WaitForChild("A60")
+local entityPrimaryPart = entity.PrimaryPart or entity:FindFirstChild("Head")
+game.TweenService:Create(entityPrimaryPart, TweenInfo.new(0), {CFrame = humanoidRootPart.CFrame * CFrame.new(0, 3, -6)}):Play()
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 0
+end)
+
+
+
+     local Jumpscare = GetGitSound("https://github.com/Tinkgy111/Bang/blob/main/lv_0_20250103234053.mp3?raw=true","r")
+    Jumpscare.Parent = workspace
+    Jumpscare.Volume = 5
+	Jumpscare:Play()
+	 
+	task.wait(1.2)
+	local TweenService = game:GetService("TweenService")
+	
+local imageIds = {
+    "114943702871183",
+    "77042919484581",
+    "113785746563976",
+    "106324997569765",
+    "93365716697080",
+    "72735059720396"
+
+}
+
+-- Function to pick a random Image ID
+local function getRandomImageId()
+    return imageIds[math.random(1, #imageIds)]
+end
+
+-- Ensure this script runs as a LocalScript
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Create the ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "RandomImageGui"
+screenGui.Parent = playerGui
+
+-- Create the ImageLabel for displaying the image
+local imageLabel = Instance.new("ImageLabel")
+imageLabel.Size = UDim2.new(0, 0, 0, 0)
+imageLabel.AnchorPoint = Vector2.new(0.5, 0.5)-- Adjust size (30% of screen width and height)
+imageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+imageLabel.BackgroundColor3 = Color3.new(1, 0, 0)
+imageLabel.BackgroundTransparency = 1 -- Make the background fully transparent
+imageLabel.Image = "rbxassetid://" .. getRandomImageId() -- Set the image using a random Image ID
+imageLabel.ImageTransparency = 1
+imageLabel.Parent = screenGui
+
+
+-- Animation script
+
+
+-- Define tween info
+local GetTimeSpeed = TweenInfo.new(0.28, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+
+-- Create the animation
+local Anim = TweenService:Create(imageLabel, GetTimeSpeed, {Size = UDim2.new(0, 580, 0, 580)})
+local rot = TweenService:Create(imageLabel, GetTimeSpeed, {Rotation = 18})
+
+
+local tran = TweenService:Create(imageLabel, GetTimeSpeed, {ImageTransparency = 0})
+
+
+
+-- Play the animation
+Anim:Play()
+tran:Play()
+
+rot:Play()
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
+
+
+Anim.Completed:Wait()
+wait(0.8)
+TweenService:Create(imageLabel, TweenInfo.new(3), {ImageTransparency = 1}):Play()
+local monster = workspace:FindFirstChild("A60")
+monster:Destroy()
+red:Destroy()
+task.wait(3)
+debounce = false
+
+        end
+	end
+end
+	end)
+end)
+
+entity:SetCallback("OnEnterRoom", function(room, firstTime)
+    if firstTime == true then
+        print("Entity has entered room: ".. room.Name.. " for the first time")
+    else
+        print("Entity has entered room: ".. room.Name.. " again")
+    end
+end)
+
+entity:SetCallback("OnLookAt", function(lineOfSight)
+	if lineOfSight == true then
+		print("Player is looking at entity")
+	else
+		print("Player view is obstructed by something")
+	end
+end)
+
+entity:SetCallback("OnRebounding", function(startOfRebound)
+    if startOfRebound == true then
+      
+  end
+end)
+
+entity:SetCallback("OnDespawning", function()
+    print("Entity is despawning")
+end)
+
+entity:SetCallback("OnDespawned", function()
+    print("Entity has despawned")
+   local huh = Instance.new("Sound", workspace)
+   huh.SoundId = "rbxassetid://1837765695"
+   huh.Volume = 9
+   huh:Play()
+end)
+
+entity:SetCallback("OnDamagePlayer", function(newHealth)
+	if newHealth == 0 then
+		print("Entity has killed the player")
+	else
+	print("cok")
+	end
+end)
+
+entity:Run()
+end
+end)
+
+
+local function light()
+spawn(function()
+game.ReplicatedStorage.GameData.LatestRoom.Changed:Connect(function()
+game.Workspace.CurrentRooms[game.ReplicatedStorage.GameData.LatestRoom.Value].Assets.Light_Fixtures:Destroy()
+game.Workspace.CurrentRooms[game.ReplicatedStorage.GameData.LatestRoom.Value].Assets.Chandelier:Destroy()
+end)
+end)
+end
+
+
+
+
+
+spawn(function()
+while task.wait() do
+        local p = game.ReplicatedStorage.GameData.LatestRoom.Value
+        if p >= 53 then
+light()
+end
+end
+end)
+
+
+
+spawn(function()
+while task.wait() do
+local e = game.ReplicatedStorage.GameData.LatestRoom.Value
+  if e >= 53 then
+  while task.wait(120) do
+                        local function GetGitSound(GithubSnd, SoundName)
+                local url = GithubSnd
+                if not isfile(SoundName .. ".mp3") then
+                    writefile(SoundName .. ".mp3", game:HttpGet(url))
+                end
+                local sound = Instance.new("Sound")
+                sound.SoundId = (getcustomasset or getsynasset)(SoundName .. ".mp3")
+                return sound
+            end
+            wait(2)
+-- Get PlayerGui
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Create ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "RandomImageGui"
+screenGui.Parent = playerGui
+
+-- Function to create an ImageLabel
+local function createImageLabel(parent, imageId, size, position, color, back)
+    local imageLabel = Instance.new("ImageLabel")
+    imageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+    imageLabel.Size = size
+    imageLabel.Position = position
+    imageLabel.BackgroundTransparency = 1
+    imageLabel.Image = "rbxassetid://" .. imageId
+    imageLabel.ImageTransparency = 1 -- Initially invisible
+    imageLabel.BackgroundColor3 = back or Color3.new(1, 0, 0)
+    imageLabel.ImageColor3 = color or Color3.new(1, 1, 1)
+    imageLabel.Parent = parent
+    return imageLabel
+end
+
+-- Static Image
+local staticImage = createImageLabel(screenGui, "112223543197303", UDim2.new(2.7, 0, 2.7, 0), UDim2.new(0.5, 0, 0.5, 0), Color3.new(0.4, 0, 0))
+
+
+local randomXScale = math.random(0, 100) / 100 -- Random X scale between 0.0 and 1.0
+local randomYScale = math.random(0, 100) / 100 -- Random Y scale between 0.0 and 1.0
+
+-- A90 Image
+local A90 = createImageLabel(screenGui, "104997991514855", UDim2.new(0, 120, 0, 120), UDim2.new(randomXScale, 0, randomYScale, 0))
+
+-- Other Images
+local red = Instance.new("ImageLabel")
+red.Size = UDim2.new(2.5, 0, 2.5, 0)
+red.AnchorPoint = Vector2.new(0.5, 0.5)-- Adjust size (30% of screen width and height)
+red.Position = UDim2.new(0.5, 0, 0.5, 0)
+red.BackgroundColor3 = Color3.new(1, 0, 0)
+red.BackgroundTransparency = 1 -- Make the background fully transparent
+red.Image = "rbxassetid://133659078606888" -- Set the image using a random Image ID
+red.ImageTransparency = 1
+red.ImageColor3 = Color3.new(1, 0, 0)
+red.Parent = screenGui
+
+spawn(function()
+while wait() do
+red.Position = UDim2.new(0.6, 0, 0.6, 0.6)
+wait()
+red.Position = UDim2.new(0.5, 0, 0.5, 0)
+end
+end)
+local newA90 = createImageLabel(screenGui, "104997991514855", UDim2.new(0, 120, 0, 120), UDim2.new(0.5, 0, 0.5, 0))
+local yo = createImageLabel(screenGui, "75905225985452", UDim2.new(0, 120, 0, 120), UDim2.new(0.5, 0, 0.5, 0))
+local mabye = createImageLabel(screenGui, "79647406459731", UDim2.new(0, 120, 0, 120), UDim2.new(0.5, 0, 0.5, 0), Color3.new(1, 0, 0))
+local him = createImageLabel(screenGui, "121165571191380", UDim2.new(2.7, 0, 2.7, 0), UDim2.new(0.5, 0, 0.5, 0), Color3.new(1, 0, 0))
+local angy = createImageLabel(screenGui, "131022827918265", UDim2.new(0, 400, 0, 400), UDim2.new(0.5, 0, 0.5, 0))
+
+-- Function to apply glitch effect with slight rotations and position changes
+local function applyGlitchEffect(imageLabel, duration)
+    local startTime = tick()
+    while tick() - startTime < duration do
+        -- Randomize position and rotation slightly
+        imageLabel.Position = UDim2.new(0.5 + math.random(-0.6, 0.6) / 100, 0, 0.5 + math.random(-0.6, 0.5) / 100, 0)
+        imageLabel.Rotation = math.random(-4, 4) -- Slight rotation
+        task.wait(0.01) -- Small delay to make the effect smooth
+    end
+    -- Reset to original state
+    imageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+    imageLabel.Rotation = 0
+end
+
+local function applyscareEffect(imageLabel, duration)
+    local startTime = tick()
+    while tick() - startTime < duration do
+        -- Randomize position and rotation slightly
+        imageLabel.Position = UDim2.new(0.5 + math.random(-5, 5) / 100, 0, 0.5 + math.random(-5, 5) / 100, 0)
+        imageLabel.Rotation = math.random(-5, 5) -- Slight rotation
+        task.wait(0.01) -- Small delay to make the effect smooth
+    end
+    -- Reset to original state
+    imageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+    imageLabel.Rotation = 0
+end
+
+local function applyatEffect(imageLabel, duration)
+    local startTime = tick()
+    while tick() - startTime < duration do
+        -- Randomize position and rotation slightly
+        imageLabel.Rotation = math.random(-2.6, 2.6) -- Slight rotation
+         -- Small delay to make the effect smooth
+         task.wait()
+    end
+    -- Reset to original state
+
+
+end
+
+
+-- Apply glitch effect to individual images
+
+
+
+task.spawn(function()
+    applyGlitchEffect(newA90, 100) -- Apply glitch to newA90 for 2 seconds
+end)
+
+task.spawn(function()
+    applyGlitchEffect(yo, 100) -- Apply glitch to yo for 2 seconds
+end)
+
+task.spawn(function()
+    applyGlitchEffect(mabye, 100) -- Apply glitch to mabye for 2 seconds
+end)
+
+task.spawn(function()
+    applyGlitchEffect(him, 100) -- Apply glitch to him for 2 seconds
+end)
+
+task.spawn(function()
+    applyscareEffect(angy, 2.8) -- Apply glitch to him for 2 seconds
+end)
+
+task.spawn(function()
+    applyatEffect(A90, 100)
+end)
+
+-- Animation Sequence
+
+
+angy.ImageTransparency = 1
+
+A90.ImageTransparency = 0 -- Show A90
+
+local spawn = GetGitSound("https://github.com/Brololto/Ripper/blob/main/doors-rooms-a-90-spawn-sound-effect-made-with-Voicemod.mp3?raw=true", "spawn")
+spawn.Parent = workspace
+spawn.Volume = 3
+spawn:Play()
+
+
+
+
+
+wait(0.8)
+A90.ImageTransparency = 1 -- Hide A90
+
+staticImage.ImageTransparency = 1
+
+task.wait()
+
+
+
+newA90.ImageTransparency = 0
+
+
+task.wait(0.1)
+newA90.ImageColor3 = Color3.new(1, 0, 0)
+newA90.ImageTransparency = 1
+yo.ImageTransparency = 0
+ red.ImageTransparency = 0
+ task.wait()
+ newA90.Size = UDim2.new(0, 200, 0, 200)
+ newA90.Image = "rbxassetid://140399758462553"
+ newA90.ImageTransparency = 0
+  newA90.Rotation = -6
+ task.wait(0.1)
+ yo.ImageTransparency = 1
+
+
+local Moved = false
+
+if game.Players.LocalPlayer.Character.Humanoid.MoveDirection ~= Vector3.new(0, 0, 0) then
+Moved = true
+end
+
+for i = 1, 1 do
+if Moved == true then
+
+task.wait(0.1)
+
+spawn:Stop()
+
+staticImage.ImageTransparency = 1 
+
+him.ImageTransparency = 1 
+
+mabye.ImageTransparency = 1 
+
+yo.ImageTransparency = 1
+
+newA90.ImageTransparency = 1
+
+angy.ImageColor3 = Color3.new(1, 0, 0)
+
+angy.ImageTransparency = 0
+
+red.ImageTransparency = 0
+
+local attack = GetGitSound("https://github.com/Brololto/Ripper/blob/main/doors-rooms-a-90-jumpscare-sound-effect-made-with-Voicemod.mp3?raw=true", "atack")
+attack.Parent = workspace
+attack.Volume = 3
+attack:Play()
+wait(1)
+
+red.ImageTransparency = 1
+
+local hum = game.Players.LocalPlayer.Character.Humanoid
+hum:TakeDamage(70)
+                    local CameraShaker = require(game.ReplicatedStorage.CameraShaker)
+            local camera = game.Workspace.CurrentCamera
+            local camShake = CameraShaker.new(Enum.RenderPriority.Camera.Value, function(shakeCf)
+                camera.CFrame = camera.CFrame * shakeCf
+            end)
+            camShake:Start()
+            camShake:ShakeOnce(30, 16, 10, 10, 10, 10)
+
+local TweenService = game:GetService("TweenService")
+
+local time = TweenInfo.new(5)
+
+local bye = TweenService:Create(angy, time, {ImageTransparency = 1})
+
+bye:Play()
+angy.Size = UDim2.new(0, 500, 0, 500)
+red.BackgroundTransparency = 0.59
+red.BackgroundColor3 = Color3.new(1, 0, 0)
+TweenService:Create(red, TweenInfo.new(5), {BackgroundTransparency = 1}):Play()
+angy.Rotation = 0
+else
+wait(0.3)
+                    local CameraShaker = require(game.ReplicatedStorage.CameraShaker)
+            local camera = game.Workspace.CurrentCamera
+            local camShake = CameraShaker.new(Enum.RenderPriority.Camera.Value, function(shakeCf)
+                camera.CFrame = camera.CFrame * shakeCf
+            end)
+            camShake:Start()
+            camShake:ShakeOnce(7, 8, 0, 5.5, 1, 0)
+newA90.ImageTransparency = 1 -- Hide newA90
+
+red.ImageTransparency = 1
+red.BackgroundColor3 = Color3.new(1, 0, 0)
+red.BackgroundTransparency = 0.20
+
+mabye.ImageTransparency = 1
+
+yo.ImageTransparency = 1
+
+task.wait()
+
+red.ImageTransparency = 1
+
+
+staticImage.ImageTransparency = 1
+ 
+red.BackgroundTransparency = 1
+wait(2)
+Moved = false
+end
+end
+end
+end
+end
+end)
+
+
+
+spawn(function()
+while task.wait() do
+         local c = game.ReplicatedStorage.GameData.LatestRoom.Value
+        if c >= 53 then
+local function GetGitSound(GithubSnd, SoundName)
+                local url = GithubSnd
+                if not isfile(SoundName .. ".mp3") then
+                    writefile(SoundName .. ".mp3", game:HttpGet(url))
+                end
+                local sound = Instance.new("Sound")
+                sound.SoundId = (getcustomasset or getsynasset)(SoundName .. ".mp3")
+                return sound
+            end
+local Jumpscare = GetGitSound("https://github.com/Tinkgy111/The-Gloomy-Darkness-Audio-/blob/main/Screen_Recording_20230524-164509_YouTube.mp3?raw=true","r")
+    Jumpscare.Parent = workspace
+    Jumpscare.Volume = 5
+	Jumpscare:Play()
+local function displayMessage(message)
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Parent = screenGui
+    textLabel.Size = UDim2.new(0.6, 0, 0.4, 0) -- 60% width, 10% height of the screen
+    textLabel.Position = UDim2.new(0.5, 0, 0.1, 0) -- Bottom-center of the screen
+    textLabel.AnchorPoint = Vector2.new(0.5, 0.5) -- Center the TextLabel at its position
+    textLabel.BackgroundColor3 = Color3.new(0, 0, 0) -- Black background
+    textLabel.BackgroundTransparency = 1
+    textLabel.TextColor3 = Color3.new(1, 1, 1) -- White text
+    textLabel.TextScaled = true -- Automatically scale the text
+    textLabel.Font = Enum.Font.Cartoon -- Set the font
+    textLabel.Text = message -- Display the message
+        task.wait(5)
+    for i = 1, 10 do
+        textLabel.TextTransparency = i / 10
+
+        task.wait(0.1)
+    end
+end
+
+
+
+-- Run the messages in separate coroutines
+coroutine.wrap(function() displayMessage("The Dark Depths") end)()
+end
+end
+end)
+ 
+ 
+ 
+spawn(function() -- dread
+while task.wait() do
+local d = game.ReplicatedStorage.GameData.LatestRoom.Value
+if d >= 53 then
+while task.wait(186) do
+-- Drew
+local Players = game:GetService("Players")
+
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local HumanoidRootPart = character:WaitForChild("HumanoidRootPart")
+local CurrentRooms = game.Workspace.CurrentRooms
+local currentLoadedRoom = game.ReplicatedStorage.GameData.LatestRoom.Value
+local SpawnVariable = CurrentRooms:FindFirstChild(currentLoadedRoom)
+
+
+local Dread = game:GetObjects("rbxassetid://138749323784910")[1]
+Dread.Parent = workspace
+Dread.PrimaryPart = Dread:FindFirstChildWhichIsA("BasePart")
+Dread.PrimaryPart.Anchored = true
+Dread.PrimaryPart.CanCollide = false
+Dread.PrimaryPart.Position = SpawnVariable.Parts.Floor.Position + Vector3.new(0, 6, 0)
+
+
+
+
+local debounce = false
+
+
+local function death()
+debounce = true
+game:GetService("RunService").RenderStepped:Connect(function()
+    local Camera = workspace.CurrentCamera
+    local cameraPosition = Camera.CFrame.Position
+    local Dreade = Dread.PrimaryPart
+    local modelPosition = Dreade:GetPivot().Position
+    Camera.CFrame = CFrame.new(cameraPosition, modelPosition)
+    end)
+    wait(1)
+                            local function GetGitSound(GithubSnd, SoundName)
+                local url = GithubSnd
+                if not isfile(SoundName .. ".mp3") then
+                    writefile(SoundName .. ".mp3", game:HttpGet(url))
+                end
+                local sound = Instance.new("Sound")
+                sound.SoundId = (getcustomasset or getsynasset)(SoundName .. ".mp3")
+                return sound
+            end
+            local Debri = game:GetService("Debris")
+           local spawn = GetGitSound("https://github.com/Tinkgy111/Bang/blob/main/lv_0_20250111000930.mp3?raw=true", "spawner")
+spawn.Parent = workspace
+spawn.Volume = 3
+spawn:Play()
+for i,v in pairs(Dread:GetDescendants()) do
+     if v:IsA("ParticleEmitter") then
+        v.TimeScale = 0
+        end
+        end
+
+
+
+Debri:AddItem(Dread, 4)
+game.Lighting.MainColorCorrection.Contrast = 100
+
+
+game.Lighting.MainColorCorrection.Saturation = 100
+wait(4)
+game:GetService("RunService").RenderStepped:Connect(function()
+HumanoidRootPart.Position = SpawnVariable.Parts.Floor.Position
+end)
+                    local CameraShaker = require(game.ReplicatedStorage.CameraShaker)
+            local camera = game.Workspace.CurrentCamera
+            local camShake = CameraShaker.new(Enum.RenderPriority.Camera.Value, function(shakeCf)
+                camera.CFrame = camera.CFrame * shakeCf
+            end)
+            camShake:Start()
+            camShake:ShakeOnce(90, 90, 90, 90.5, 90, 95)
+
+wait(11)
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
+SpawnVariable.Parts.Floor:Destroy()
+end
+
+task.spawn(function()
+while task.wait() do
+if debounce == true then
+     break
+end
+local _, onScreen = workspace.CurrentCamera:WorldToScreenPoint(Dread.PrimaryPart.Position)
+if onScreen then
+death()
+end
+end
+end)
+
+
+game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
+game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
+game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
+Dread:Destroy()
+end
+end
+end
+end)
+ 
