@@ -1950,13 +1950,9 @@ end
 end
 end)
 
-
-
-spawn(function()
-while task.wait() do
-local e = game.ReplicatedStorage.GameData.LatestRoom.Value
-  if e >= 53 then
-  while task.wait(120) do
+local function A90()
+task.spawn(function()
+while task.wait(120) do
                         local function GetGitSound(GithubSnd, SoundName)
                 local url = GithubSnd
                 if not isfile(SoundName .. ".mp3") then
@@ -2228,16 +2224,31 @@ Moved = false
 end
 end
 end
-end
-end
 end)
-
-
+end
 
 spawn(function()
 while task.wait() do
+local e = game.ReplicatedStorage.GameData.LatestRoom.Value
+  if e == 53 then
+A90()
+end
+end
+end)
+  
+
+
+
+debunk = false
+spawn(function()
+while task.wait() do
+   if debunk == true then
+      break
+   end
          local c = game.ReplicatedStorage.GameData.LatestRoom.Value
-        if c >= 53 then
+        if c == 53 then
+
+debunk = true
 local function GetGitSound(GithubSnd, SoundName)
                 local url = GithubSnd
                 if not isfile(SoundName .. ".mp3") then
