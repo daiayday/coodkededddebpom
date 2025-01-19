@@ -1953,17 +1953,9 @@ end)
 local function A90()
 task.spawn(function()
 while task.wait(120) do
-                        local function GetGitSound(GithubSnd, SoundName)
-                local url = GithubSnd
-                if not isfile(SoundName .. ".mp3") then
-                    writefile(SoundName .. ".mp3", game:HttpGet(url))
-                end
-                local sound = Instance.new("Sound")
-                sound.SoundId = (getcustomasset or getsynasset)(SoundName .. ".mp3")
-                return sound
-            end
-            wait(2)
--- Get PlayerGui
+   
+
+local deb = false
 local player = game.Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
 
@@ -1972,7 +1964,6 @@ local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "RandomImageGui"
 screenGui.Parent = playerGui
 
--- Function to create an ImageLabel
 local function createImageLabel(parent, imageId, size, position, color, back)
     local imageLabel = Instance.new("ImageLabel")
     imageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -1987,54 +1978,21 @@ local function createImageLabel(parent, imageId, size, position, color, back)
     return imageLabel
 end
 
--- Static Image
-local staticImage = createImageLabel(screenGui, "112223543197303", UDim2.new(2.7, 0, 2.7, 0), UDim2.new(0.5, 0, 0.5, 0), Color3.new(0.4, 0, 0))
-
-
-local randomXScale = math.random(0, 100) / 100 -- Random X scale between 0.0 and 1.0
-local randomYScale = math.random(0, 100) / 100 -- Random Y scale between 0.0 and 1.0
-
--- A90 Image
-local A90 = createImageLabel(screenGui, "104997991514855", UDim2.new(0, 120, 0, 120), UDim2.new(randomXScale, 0, randomYScale, 0))
-
--- Other Images
-local red = Instance.new("ImageLabel")
-red.Size = UDim2.new(2.5, 0, 2.5, 0)
-red.AnchorPoint = Vector2.new(0.5, 0.5)-- Adjust size (30% of screen width and height)
-red.Position = UDim2.new(0.5, 0, 0.5, 0)
-red.BackgroundColor3 = Color3.new(1, 0, 0)
-red.BackgroundTransparency = 1 -- Make the background fully transparent
-red.Image = "rbxassetid://133659078606888" -- Set the image using a random Image ID
-red.ImageTransparency = 1
-red.ImageColor3 = Color3.new(1, 0, 0)
-red.Parent = screenGui
-
-spawn(function()
-while wait() do
-red.Position = UDim2.new(0.6, 0, 0.6, 0.6)
-wait()
-red.Position = UDim2.new(0.5, 0, 0.5, 0)
-end
-end)
-local newA90 = createImageLabel(screenGui, "104997991514855", UDim2.new(0, 120, 0, 120), UDim2.new(0.5, 0, 0.5, 0))
-local yo = createImageLabel(screenGui, "75905225985452", UDim2.new(0, 120, 0, 120), UDim2.new(0.5, 0, 0.5, 0))
-local mabye = createImageLabel(screenGui, "79647406459731", UDim2.new(0, 120, 0, 120), UDim2.new(0.5, 0, 0.5, 0), Color3.new(1, 0, 0))
-local him = createImageLabel(screenGui, "121165571191380", UDim2.new(2.7, 0, 2.7, 0), UDim2.new(0.5, 0, 0.5, 0), Color3.new(1, 0, 0))
-local angy = createImageLabel(screenGui, "131022827918265", UDim2.new(0, 400, 0, 400), UDim2.new(0.5, 0, 0.5, 0))
-
--- Function to apply glitch effect with slight rotations and position changes
 local function applyGlitchEffect(imageLabel, duration)
     local startTime = tick()
     while tick() - startTime < duration do
         -- Randomize position and rotation slightly
-        imageLabel.Position = UDim2.new(0.5 + math.random(-0.6, 0.6) / 100, 0, 0.5 + math.random(-0.6, 0.5) / 100, 0)
+
         imageLabel.Rotation = math.random(-4, 4) -- Slight rotation
         task.wait(0.01) -- Small delay to make the effect smooth
     end
     -- Reset to original state
-    imageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+
     imageLabel.Rotation = 0
 end
+
+
+
 
 local function applyscareEffect(imageLabel, duration)
     local startTime = tick()
@@ -2049,137 +2007,46 @@ local function applyscareEffect(imageLabel, duration)
     imageLabel.Rotation = 0
 end
 
-local function applyatEffect(imageLabel, duration)
-    local startTime = tick()
-    while tick() - startTime < duration do
-        -- Randomize position and rotation slightly
-        imageLabel.Rotation = math.random(-2.6, 2.6) -- Slight rotation
-         -- Small delay to make the effect smooth
-         task.wait()
-    end
-    -- Reset to original state
-
-
-end
-
-
--- Apply glitch effect to individual images
-
-
-
-task.spawn(function()
-    applyGlitchEffect(newA90, 100) -- Apply glitch to newA90 for 2 seconds
-end)
-
-task.spawn(function()
-    applyGlitchEffect(yo, 100) -- Apply glitch to yo for 2 seconds
-end)
-
-task.spawn(function()
-    applyGlitchEffect(mabye, 100) -- Apply glitch to mabye for 2 seconds
-end)
-
-task.spawn(function()
-    applyGlitchEffect(him, 100) -- Apply glitch to him for 2 seconds
-end)
-
+local angy = createImageLabel(screenGui, "128097037283645", UDim2.new(0, 400, 0, 400), UDim2.new(0.5, 0, 0.5, 0))
+angy.ImageTransparency = 1
+angy.ImageColor3 = Color3.new(1, 0, 0)
 task.spawn(function()
     applyscareEffect(angy, 2.8) -- Apply glitch to him for 2 seconds
 end)
 
+spawn(function()
+local Fce = game:GetService("Players").LocalPlayer.PlayerGui.MainUI.Jumpscare.Jumpscare_A90.Face
+
+deb = false
+
+game:GetService("Players").LocalPlayer.PlayerGui.MainUI.Jumpscare.Jumpscare_A90.Face.Image = "rbxassetid://104997991514855"
+
+
 task.spawn(function()
-    applyatEffect(A90, 100)
+    applyGlitchEffect(Fce, 100) -- Apply glitch to newA90 for 2 seconds
 end)
-
--- Animation Sequence
-
-
-angy.ImageTransparency = 1
-
-A90.ImageTransparency = 0 -- Show A90
-
-local spawn = GetGitSound("https://github.com/Brololto/Ripper/blob/main/doors-rooms-a-90-spawn-sound-effect-made-with-Voicemod.mp3?raw=true", "spawn")
-spawn.Parent = workspace
-spawn.Volume = 3
-spawn:Play()
-
-
-
-
-
-wait(0.8)
-A90.ImageTransparency = 1 -- Hide A90
-
-staticImage.ImageTransparency = 1
-
-task.wait()
-
-
-
-newA90.ImageTransparency = 0
-
-
-task.wait(0.1)
-newA90.ImageColor3 = Color3.new(1, 0, 0)
-newA90.ImageTransparency = 1
-yo.ImageTransparency = 0
- red.ImageTransparency = 0
- task.wait()
- newA90.Size = UDim2.new(0, 200, 0, 200)
- newA90.Image = "rbxassetid://140399758462553"
- newA90.ImageTransparency = 0
-  newA90.Rotation = -6
- task.wait(0.1)
- yo.ImageTransparency = 1
-
-
-local Moved = false
-
-if game.Players.LocalPlayer.Character.Humanoid.MoveDirection ~= Vector3.new(0, 0, 0) then
-Moved = true
-end
-
-for i = 1, 1 do
-if Moved == true then
-
-task.wait(0.1)
-
-spawn:Stop()
-
-staticImage.ImageTransparency = 1 
-
-him.ImageTransparency = 1 
-
-mabye.ImageTransparency = 1 
-
-yo.ImageTransparency = 1
-
-newA90.ImageTransparency = 1
-
-angy.ImageColor3 = Color3.new(1, 0, 0)
-
+require(game:GetService("Players").LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game.RemoteListener.Modules.A90)(require(game:GetService("Players").LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game))
+end)
+spawn(function()
+wait(2)
+deb = true
+end)
+spawn(function()
+while task.wait() do
+if game:GetService("Players").LocalPlayer.PlayerGui.MainUI.Jumpscare.Jumpscare_A90.FaceAngry.Visible == true then
+  if deb == true then
+     break
+  end
+deb = true
+game:GetService("Players").LocalPlayer.PlayerGui.MainUI.Jumpscare.Jumpscare_A90.FaceAngry.Visible = false
 angy.ImageTransparency = 0
 
-red.ImageTransparency = 0
 
-local attack = GetGitSound("https://github.com/Brololto/Ripper/blob/main/doors-rooms-a-90-jumpscare-sound-effect-made-with-Voicemod.mp3?raw=true", "atack")
-attack.Parent = workspace
-attack.Volume = 3
-attack:Play()
+local ReSt = game:GetService("ReplicatedStorage") 
+ ReSt.GameStats["Player_".. game.Players.LocalPlayer.Name].Total.DeathCause.Value = "A-90"
 wait(1)
-
-red.ImageTransparency = 1
-
-local hum = game.Players.LocalPlayer.Character.Humanoid
-hum:TakeDamage(70)
-                    local CameraShaker = require(game.ReplicatedStorage.CameraShaker)
-            local camera = game.Workspace.CurrentCamera
-            local camShake = CameraShaker.new(Enum.RenderPriority.Camera.Value, function(shakeCf)
-                camera.CFrame = camera.CFrame * shakeCf
-            end)
-            camShake:Start()
-            camShake:ShakeOnce(30, 16, 10, 10, 10, 10)
-
+angy.Size = UDim2.new(0, 500, 0, 500)
+game.Players.LocalPlayer.Character.Humanoid:TakeDamage(70)
 local TweenService = game:GetService("TweenService")
 
 local time = TweenInfo.new(5)
@@ -2187,42 +2054,10 @@ local time = TweenInfo.new(5)
 local bye = TweenService:Create(angy, time, {ImageTransparency = 1})
 
 bye:Play()
-angy.Size = UDim2.new(0, 500, 0, 500)
-red.BackgroundTransparency = 0.59
-red.BackgroundColor3 = Color3.new(1, 0, 0)
-TweenService:Create(red, TweenInfo.new(5), {BackgroundTransparency = 1}):Play()
-angy.Rotation = 0
-else
-wait(0.3)
-                    local CameraShaker = require(game.ReplicatedStorage.CameraShaker)
-            local camera = game.Workspace.CurrentCamera
-            local camShake = CameraShaker.new(Enum.RenderPriority.Camera.Value, function(shakeCf)
-                camera.CFrame = camera.CFrame * shakeCf
-            end)
-            camShake:Start()
-            camShake:ShakeOnce(7, 8, 0, 5.5, 1, 0)
-newA90.ImageTransparency = 1 -- Hide newA90
-
-red.ImageTransparency = 1
-red.BackgroundColor3 = Color3.new(1, 0, 0)
-red.BackgroundTransparency = 0.20
-
-mabye.ImageTransparency = 1
-
-yo.ImageTransparency = 1
-
-task.wait()
-
-red.ImageTransparency = 1
-
-
-staticImage.ImageTransparency = 1
- 
-red.BackgroundTransparency = 1
-wait(2)
-Moved = false
 end
 end
+end)
+
 end
 end)
 end
