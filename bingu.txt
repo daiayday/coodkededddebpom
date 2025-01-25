@@ -814,7 +814,7 @@ local HumanoidRootPart = character:WaitForChild("HumanoidRootPart")
 --Range
 local canSee = 100
 --Model
-local Ceas = workspace:FindFirstChild("Cease")
+local Ceas = s
 local kill = Ceas:FindFirstChildWhichIsA("BasePart")
  
  --loop death bru
