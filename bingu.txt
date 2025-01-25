@@ -303,6 +303,9 @@ imageLabel:Destroy()
 red:Destroy()
 local hum = game.Players.LocalPlayer.Character.Humanoid
 hum:TakeDamage(100)
+
+                            local ReSt = game:GetService("ReplicatedStorage") 
+            ReSt.GameStats["Player_"..player.Name].Total.DeathCause.Value = "Rebound"
 end
 end
 end)
@@ -811,19 +814,21 @@ local HumanoidRootPart = character:WaitForChild("HumanoidRootPart")
 
 
 
---Range
-local canSee = 100
---Model
-local Ceas = s
-local kill = Ceas:FindFirstChildWhichIsA("BasePart")
- 
- --loop death bru
-game:GetService("RunService").Heartbeat:Connect(function()
-local TargetDistance = (kill.Position - HumanoidRootPart.Position).Magnitude
+local hitbox = 50
+local RunService = game:GetService("RunService")
 
-if TargetDistance <= canSee then
-if game.Players.LocalPlayer.Character.Humanoid.MoveDirection ~= Vector3.new(0, 0, 0) then
-game.Players.LocalPlayer.Character.Humanoid.Health = 0
+RunService.Heartbeat:Connect(function()
+local origin = silence.PrimaryPart.Position
+local direction = (HumanoidRootPart.Position - origin).Unit
+
+local ray = Ray.new(origin, direction * hitbox)
+
+local result = workspace:Raycast(ray.Origin, ray.Direction)
+
+     if result and result.Instance.Parent == character then
+     if game.Players.LocalPlayer.Character.Humanoid.MoveDirection ~= Vector3.new(0, 0, 0) then
+     game.Players.LocalPlayer.Character.Humanoid.Health = 0
+
                             local ReSt = game:GetService("ReplicatedStorage") 
             ReSt.GameStats["Player_"..player.Name].Total.DeathCause.Value = "Cease"
 end
@@ -888,9 +893,9 @@ task.wait(3)
         fakejays.Completed:Wait()
         ambush.CanCollide = false
         ambush.Anchored = false
-        workspace.CurrentRooms[game.ReplicatedStorage.GameData.LatestRoom.Value]:WaitForChild("Door").ClientOpen:FireServer()
         wait(1)
         s:Destroy()
+       
        
 end
 
