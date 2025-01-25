@@ -436,7 +436,7 @@ if workspace:FindFirstChild("SeekMovingNewClone")
                 and not workspace.CurrentRooms:FindFirstChild("100")
         end
 game:GetService("ReplicatedStorage").GameData.LatestRoom:GetPropertyChangedSignal("Value"):Wait()
-
+local dead = false
 local function ripperdeath()
 -- Services
 local Players = game:GetService("Players")
@@ -460,19 +460,19 @@ r.Parent = Workspace
 
 
 spawn(function()
-    local Camera = workspace.CurrentCamera
-    Camera.CameraType = Enum.CameraType.Scriptable
+local Camera = workspace.CurrentCamera
+Camera.CameraType = Enum.CameraType.Scriptable
     local cameraPosition = Camera.CFrame.Position
     local modelPosition = r:GetPivot().Position
-    local cool = TweenService:Create(Camera, TweenInfo.new(0.5), {CFrame = CFrame.new(cameraPosition, modelPosition)})
-    cool:Play()
-    cool.Completed:Wait()
-    game:GetService("RunService").RenderStepped:Connect(function()
-        local Camera = workspace.CurrentCamera
+local scene = TweenService:Create(Camera, TweenInfo.new(0.5), {CFrame = CFrame.new(cameraPosition, modelPosition)})
+scene:Play()
+scene.Completed:Wait()
+game:GetService("RunService").RenderStepped:Connect(function()
+    local Camera = workspace.CurrentCamera
     local cameraPosition = Camera.CFrame.Position
     local modelPosition = r:GetPivot().Position
     Camera.CFrame = CFrame.new(cameraPosition, modelPosition)
-    end)
+end)
 end)
 
 
@@ -486,7 +486,7 @@ end
 end)
 
 --Jumpscare
-local bruh = workspace:FindFirstChild("Ripper")
+local bruh = workspace:FindFirstChild("Death")
 r:SetPrimaryPartCFrame(bruh.PrimaryPart.CFrame * CFrame.new(0, 1, 0))
 for i,v in pairs(r:GetDescendants()) do
      if v:IsA("ParticleEmitter") then
@@ -549,6 +549,8 @@ wait(2)
                 crash:Stop()
                 local GetTimeSpeed = TweenInfo.new(0.5)
                 TweenService:Create(red, GetTimeSpeed, {ImageTransparency = 1}):Play()
+                            local ReSt = game:GetService("ReplicatedStorage") 
+            ReSt.GameStats["Player_"..player.Name].Total.DeathCause.Value = "Ripper"
 end
 
 
@@ -580,74 +582,22 @@ for i, v in pairs(workspace.CurrentRooms:GetDescendants()) do
           end
 end
 
----====== Load spawner ======---
 
-local dead = false
-local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
 
----====== Create entity ======---
 
-local entity = spawner.Create({
-	Entity = {
-		Name = "Ripper",
-		Asset = "rbxassetid://132675601442627",
-		HeightOffset = 4.6
-	},
-	Lights = {
-		Flicker = {
-			Enabled = false,
-			Duration = 1
-		},
-		Shatter = false,
-		Repair = false
-	},
-	Earthquake = {
-		Enabled = false
-	},
-	CameraShake = {
-		Enabled = true,
-		Range = 100,
-		Values = {1.5, 20, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
-	},
-	Movement = {
-		Speed = 180,
-		Delay = 9,
-		Reversed = false
-	},
-	Rebounding = {
-		Enabled = false,
-		Type = "Ambush", -- "Blitz"
-		Min = 1,
-		Max = 1,
-		Delay = 2
-	},
-	Damage = {
-		Enabled = false,
-		Range = 40,
-		Amount = 125
-	},
-	Crucifixion = {
-		Enabled = false,
-		Range = 40,
-		Resist = false,
-		Break = false
-	},
-	Death = {
-		Type = "Guiding", -- "Curious"
-		Hints = {"Death", "Hints", "Go", "Here"},
-		Cause = ""
-	}
-})
 
----====== Debug entity ======---
+local s = game:GetObjects("rbxassetid://132675601442627")[1]
+s.Parent = workspace
+local ambush = s.PrimaryPart or s.Ripe
+ambush.CanCollide = false
+ambush.Anchored = true
 
-entity:SetCallback("OnSpawned", function()
-    print("Entity has spawned")
-    shaker()
+workspace.Death.Spawn:Play()
 
-workspace.Ripper.Spawn:Play()
+shaker()
+
 local workspace = game:GetService("Workspace")
-local silence = workspace:FindFirstChild("Ripper")
+local silence = s
 local Players = game:GetService("Players")
 
 
@@ -658,7 +608,7 @@ local player = Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local HumanoidRootPart = character:WaitForChild("HumanoidRootPart")
 
-local hitbox = 35
+local hitbox = 50
 local RunService = game:GetService("RunService")
 
 RunService.Heartbeat:Connect(function()
@@ -680,54 +630,82 @@ local result = workspace:Raycast(ray.Origin, ray.Direction)
 end
 
 end)
+
+local workspace = game:GetService("Workspace")
+local silene = s
+local hitboox = 80
+
+if not silene then
+    warn("Model 'Silence' not found in Workspace!")
+    return
+end
+
+
+
+RunService.Heartbeat:Connect(function()
+    for _, plaer in pairs(game.Players:GetPlayers()) do
+        if plaer.Character and plaer.Character:FindFirstChild("HumanoidRootPart") and plaer.Character:FindFirstChild("Humanoid") then
+            local rane = (silene.PrimaryPart.Position - plaer.Character.HumanoidRootPart.Position).Magnitude
+            if rane <= hitboox then
+                                              local CameraShaker = require(game.ReplicatedStorage.CameraShaker)
+            local camera = game.Workspace.CurrentCamera
+            local camShake = CameraShaker.new(Enum.RenderPriority.Camera.Value, function(shakeCf)
+                camera.CFrame = camera.CFrame * shakeCf
+            end)
+            camShake:Start()
+            camShake:ShakeOnce(15, 25, 0, 2, 1, 6)
+                end
+            end
+        end
 end)
 
-entity:SetCallback("OnStartMoving", function()
-    print("Entity has started moving")
+local rooms = workspace.CurrentRooms
+local currentroom = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value)
+local currentroom2 = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value + 1)
+game.ReplicatedStorage.GameData.LatestRoom.Changed:Connect(function()
+currentroom2 = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value + 1)
+end)
+local pathfindnodes = currentroom2:FindFirstChild("PathfindNodes")
+game.ReplicatedStorage.GameData.LatestRoom.Changed:Connect(function()
+pathfindnodes = currentroom2:FindFirstChild("PathfindNodes")
+end)
+
+
+for _, waypoint in pairs(pathfindnodes:GetChildren()) do
+   if waypoint.Name == "1" then
+task.wait(8)
 wait(0.2)
 
     wait(0.3)
        local rippermoving = Instance.new("Sound")
-rippermoving.Volume = 10
-rippermoving.Parent = workspace.Ripper.Ripe
+rippermoving.Volume = 9
+rippermoving.Parent = ambush
 rippermoving.SoundId = "rbxassetid://6963538865"
 rippermoving.PlaybackSpeed = 0.2
+rippermoving.RollOffMinDistance = 15
 rippermoving:Play()
+               task.wait(0.8)
+                        local romer = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value - 1)
+                        local cheese = game.TweenService:Create(ambush, TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {Position = romer.RoomEntrance.Position + Vector3.new(0, 6, 0)})
+                        cheese:Play()
+                        task.wait(1)
+        local previousroom = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value)
 
-end)
-
-entity:SetCallback("OnEnterRoom", function(room, firstTime)
-    if firstTime == true then
-        print("Entity has entered room: ".. room.Name.. " for the first time")
-    else
-        print("Entity has entered room: ".. room.Name.. " again")
-
-    end
-end)
-
-entity:SetCallback("OnLookAt", function(lineOfSight)
-	if lineOfSight == true then
-		print("Player is looking at entity")
-	else
-		print("Player view is obstructed by something")
-	end
-end)
-
-entity:SetCallback("OnRebounding", function(startOfRebound)
-    if startOfRebound == true then
-        print("Entity has started rebounding")
-	else
-        print("Entity has finished rebounding")
-	end
-end)
-
-entity:SetCallback("OnDespawning", function()
-    print("Entity is despawning")
-end)
-
-entity:SetCallback("OnDespawned", function()
-    print("Entity has despawned")
-
+                local akejays = game.TweenService:Create(ambush, TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {Position = previousroom.RoomEntrance.Position + Vector3.new(0, 6, 0)})
+                akejays:Play()
+              akejays.Completed:Wait()
+        local fakejays = game.TweenService:Create(ambush, TweenInfo.new(1.8, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {Position = waypoint.Position + Vector3.new(0, 6, 0)})
+        fakejays:Play()
+        task.spawn(function()
+        task.wait(1.8)
+                ambush.Position = currentroom2.RoomEntrance.Position
+         end)
+        fakejays.Completed:Wait()
+                task.spawn(function()
+        wait(0.3)
+        ambush.Anchored = false
+        end)
+        task.wait(2)
     if dead == false then
           local despawn = Instance.new("Sound")
      despawn.Parent = workspace
@@ -754,18 +732,10 @@ achievementGiver({
     Reason = "Encounter Ripper",
     Image = "rbxassetid://85743086408147"
 })
+s:Destroy()
 end
-end)
-
-entity:SetCallback("OnDamagePlayer", function(newHealth)
-	if newHealth == 0 then
-		print("Entity has killed the player")
-	else
-		print("Entity has damaged the player")
-	end
-end)
-
-entity:Run()
+end
+end
 end
 end)
 
