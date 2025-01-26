@@ -2237,9 +2237,14 @@ end
 
 spawn(function()
 while task.wait() do
+local debounce = false
+if debounce == true then
+   break
+end
 local e = game.ReplicatedStorage.GameData.LatestRoom.Value
   if e == 53 then
 A90()
+debounce = true
 end
 end
 end)
