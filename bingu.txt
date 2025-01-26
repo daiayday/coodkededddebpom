@@ -1019,7 +1019,7 @@ local HumanoidRootPart = character:WaitForChild("HumanoidRootPart")
 
 
 
-local hitbox = 50
+local hitbox = 80
 local RunService = game:GetService("RunService")
 
 RunService.Heartbeat:Connect(function()
