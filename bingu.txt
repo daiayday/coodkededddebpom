@@ -596,7 +596,7 @@ end)
 
 
 
-spawn(function() -- crash boi
+spawn(function() -- ripper
 while task.wait(175) do
 if workspace:FindFirstChild("SeekMovingNewClone") 
         or workspace.CurrentRooms:FindFirstChild("50") 
@@ -841,42 +841,53 @@ end)
 
 local rooms = workspace.CurrentRooms
 local currentroom = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value)
-local currentroom2 = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value + 1)
+                        local romer = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value - 5)
+                                                local pproom = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value - 4)
+                                                        local previousroom = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value - 3)
+                                                                              local reviousroom = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value - 2)
+                                                                                                    local peviousroom = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value - 1)
+                                                                                                                          local previousrom = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value)
+                                                                                                                                                local previousroo = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value + 1)
+
 game.ReplicatedStorage.GameData.LatestRoom.Changed:Connect(function()
-currentroom2 = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value + 1)
+                                                     previousroo = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value + 1)
+end)
+game.ReplicatedStorage.GameData.LatestRoom.Changed:Connect(function()
+
+                        romer = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value - 5)
+                                                pproom = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value - 4)
+                                                        previousroom = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value - 3)
+                                                                              reviousroom = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value - 2)
+                                                                                                    peviousroom = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value - 1)
+                                                                                                                          previousrom = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value)
+
+
 end)
 
+
+ambush.Position = romer.RoomEntrance.Position
 
 task.wait(8)
 wait(0.2)
 
     wait(0.3)
-       local rippermoving = Instance.new("Sound")
+    task.spawn(function()
+    wait(3.2)
+      local rippermoving = Instance.new("Sound")
 rippermoving.Volume = 9
 rippermoving.Parent = ambush
 rippermoving.SoundId = "rbxassetid://6963538865"
 rippermoving.PlaybackSpeed = 0.2
 rippermoving.RollOffMinDistance = 15
 rippermoving:Play()
-               task.wait(0.8)
-                        local romer = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value - 2)
-                        local cheese = game.TweenService:Create(ambush, TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {Position = romer.RoomEntrance.Position + Vector3.new(0, 6, 0)})
-                        cheese:Play()
-                        task.wait(1)
-                        local pproom = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value - 1)
-                        local makejays = game.TweenService:Create(ambush,TweenInfo.new(1), {CFrame = pproom.RoomEntrance.CFrame * CFrame.new(0, 6, 0)})
-                        makejays:Play()
-                        makejays.Completed:Wait()
-        local previousroom = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value)
-
-                local akejays = game.TweenService:Create(ambush, TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {Position = previousroom.RoomEntrance.Position + Vector3.new(0, 6, 0)})
-                akejays:Play()
-              akejays.Completed:Wait()
-        local fakejays = game.TweenService:Create(ambush, TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {Position = currentroom2.RoomEntrance.Position + Vector3.new(0, 6, 0)})
-        fakejays:Play()
-        fakejays.Completed:Wait()
-        ambush.Anchored = false
-        task.wait(2)
+end)
+               task.wait(0.1)
+                        
+                        task.spawn(function()
+       task.wait(5.2)
+           ambush.Anchored = false
+           
+                   task.wait(2)
     if dead == false then
           local despawn = Instance.new("Sound")
      despawn.Parent = ambush
@@ -905,7 +916,34 @@ achievementGiver({
 })
 s:Destroy()
 end
+end)
+                        local cheese = game.TweenService:Create(ambush, TweenInfo.new(0.1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {Position = romer.RoomEntrance.Position + Vector3.new(0, 6, 0)})
+                        cheese:Play()
+                        task.wait(1)
 
+                        local makejays = game.TweenService:Create(ambush,TweenInfo.new(0.1), {CFrame = pproom.RoomEntrance.CFrame * CFrame.new(0, 6, 0)})
+                        makejays:Play()
+                        makejays.Completed:Wait()
+
+
+                local akejays = game.TweenService:Create(ambush, TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {Position = previousroom.RoomEntrance.Position + Vector3.new(0, 6, 0)})
+                akejays:Play()
+              akejays.Completed:Wait()
+
+                                      local aejays = game.TweenService:Create(ambush, TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {Position = reviousroom.RoomEntrance.Position + Vector3.new(0, 6, 0)})
+                aejays:Play()
+              aejays.Completed:Wait()
+
+                                      local akejas = game.TweenService:Create(ambush, TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {Position = peviousroom.RoomEntrance.Position + Vector3.new(0, 6, 0)})
+                akejas:Play()
+              akejas.Completed:Wait()
+
+                                      local akjays = game.TweenService:Create(ambush, TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {Position = previousrom.RoomEntrance.Position + Vector3.new(0, 6, 0)})
+                akjays:Play()
+              akjays.Completed:Wait()
+
+                                      local vakejays = game.TweenService:Create(ambush, TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {Position = previousroo.RoomEntrance.Position + Vector3.new(0, 6, 0)})
+                vakejays:Play()
 end
 end)
 
