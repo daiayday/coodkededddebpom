@@ -159,6 +159,15 @@ local character = player.Character or player.CharacterAdded:Wait()
 local HumanoidRootPart = character:WaitForChild("HumanoidRootPart")
 
 local function Move()
+
+if workspace:FindFirstChild("SeekMovingNewClone") 
+        or workspace.CurrentRooms:FindFirstChild("50") 
+        or workspace.CurrentRooms:FindFirstChild("100") then
+            repeat task.wait() until not workspace:FindFirstChild("SeekMovingNewClone") 
+                and not workspace.CurrentRooms:FindFirstChild("50") 
+                and not workspace.CurrentRooms:FindFirstChild("100")
+                and not game.ReplicatedStorage.GameData.LatestRoom.Value == 6
+        end
 --- Rooms/CurrentRooms
 local rooms = workspace.CurrentRooms
 local currentRoom =  rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value + 1)
@@ -395,6 +404,15 @@ end
             Move()
             
             local function Movee()
+
+if workspace:FindFirstChild("SeekMovingNewClone") 
+        or workspace.CurrentRooms:FindFirstChild("50") 
+        or workspace.CurrentRooms:FindFirstChild("100") then
+            repeat task.wait() until not workspace:FindFirstChild("SeekMovingNewClone") 
+                and not workspace.CurrentRooms:FindFirstChild("50") 
+                and not workspace.CurrentRooms:FindFirstChild("100")
+                and not game.ReplicatedStorage.GameData.LatestRoom.Value == 6
+        end
 --- Rooms/CurrentRooms
 local rooms = workspace.CurrentRooms
 local currentRoom =  rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value)
@@ -604,6 +622,7 @@ if workspace:FindFirstChild("SeekMovingNewClone")
             repeat task.wait() until not workspace:FindFirstChild("SeekMovingNewClone") 
                 and not workspace.CurrentRooms:FindFirstChild("50") 
                 and not workspace.CurrentRooms:FindFirstChild("100")
+    and not game.ReplicatedStorage.GameData.LatestRoom.Value == 6
         end
 game:GetService("ReplicatedStorage").GameData.LatestRoom:GetPropertyChangedSignal("Value"):Wait()
 local dead = false
