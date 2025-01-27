@@ -961,7 +961,7 @@ end)
                 akjays:Play()
               akjays.Completed:Wait()
 
-                                      local vakejays = game.TweenService:Create(ambush, TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {Position = previousroo.RoomEntrance.Position + Vector3.new(0, 6, 0)})
+                                      local vakejays = game.TweenService:Create(ambush, TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {Position = previousroo.RoomEntrance.Position + Vector3.new(0, 6, -3)})
                 vakejays:Play()
 end
 end)
