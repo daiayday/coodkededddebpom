@@ -132,11 +132,7 @@ if workspace:FindFirstChild("SeekMovingNewClone")
                 and not workspace.CurrentRooms:FindFirstChild("100")
                 and not game.ReplicatedStorage.GameData.LatestRoom.Value == 6
         end
-
-
-
-
-                        local function GetGitSound(GithubSnd, SoundName)
+                     local function GetGitSound(GithubSnd, SoundName)
                 local url = GithubSnd
                 if not isfile(SoundName .. ".mp3") then
                     writefile(SoundName .. ".mp3", game:HttpGet(url))
@@ -145,6 +141,8 @@ if workspace:FindFirstChild("SeekMovingNewClone")
                 sound.SoundId = (getcustomasset or getsynasset)(SoundName .. ".mp3")
                 return sound
             end
+            
+
 
 local bye = false
 
@@ -152,6 +150,8 @@ local bye = false
       ----------------
       ---Speed---
 local Reboundspeed = 2 --- The speed is the seconds of how long it will take for rebound too move
+     ------------------
+       local reboundelay = 0.4
      ------------------
      ---Human---
      local player = game.Players.LocalPlayer
@@ -234,75 +234,97 @@ local target = HumanoidRootPart
 local origin = monster.Position
 local direction = (target.Position - origin).Unit
 
-local ray = Ray.new(origin, direction * 30)
+local ray = Ray.new(origin, direction * 50)
 
 local raycast = workspace:Raycast(ray.Origin, ray.Direction)
    
      if raycast and raycast.Instance.Parent == character then
             if not character:GetAttribute("Hiding") then
             bye = true
-       s:Destroy()
-       wait(0.2)
-local playerGui = player:WaitForChild("PlayerGui")
+            wait(0.5)
+            s:Destroy()
+                                 local function GetGitSound(GithubSnd, SoundName)
+                local url = GithubSnd
+                if not isfile(SoundName .. ".mp3") then
+                    writefile(SoundName .. ".mp3", game:HttpGet(url))
+                end
+                local sound = Instance.new("Sound")
+                sound.SoundId = (getcustomasset or getsynasset)(SoundName .. ".mp3")
+                return sound
+            end
+            
+            local player = game.Players.LocalPlayer
+            local playerGui = player:WaitForChild("PlayerGui")
 
 
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "RandomImageGui"
 screenGui.Parent = playerGui
+screenGui.IgnoreGuiInset = true
 
 local red = Instance.new("ImageLabel")
-red.Size = UDim2.new(8, 8, 8, 8)
-red.AnchorPoint = Vector2.new(0.5, 0.5)-- Adjust size (30% of screen width and height)
-red.Position = UDim2.new(0.5, 0, 0.5, 0)
-red.BackgroundColor3 = Color3.fromRGB(173, 216, 230) 
+red.Size = UDim2.new(1, 0, 1, 0)
 red.BackgroundTransparency = 1 -- Make the background fully transparent
-red.Image = "rbxassetid://94547864377343" -- Set the image using a random Image ID
+red.Image = "rbxassetid://76637426417491" -- Set the image using a random Image ID
 red.ImageTransparency = 0
-red.ImageColor3 = Color3.new(0, 0, 0.9)
 red.Parent = screenGui
+red.ImageColor3 = Color3.new(0, 0, 0.9)
+
+
 
 -- Create the ImageLabel for displaying the image
 local imageLabel = Instance.new("ImageLabel")
-imageLabel.Size = UDim2.new(0, 0, 0, 0)
+imageLabel.Size = UDim2.new(0.883883832, 0, 0.8828229210, 0)
 imageLabel.AnchorPoint = Vector2.new(0.5, 0.5)-- Adjust size (30% of screen width and height)
 imageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
 imageLabel.BackgroundColor3 = Color3.new(1, 0, 0, 0) 
 imageLabel.BackgroundTransparency = 1 -- Make the background fully transparent
-imageLabel.Image = "rbxassetid://136184103476873"  -- Set the image using a random Image ID
+imageLabel.Image = "rbxassetid://74290193237446"  -- Set the image using a random Image ID
 imageLabel.ImageTransparency = 1
 imageLabel.Parent = screenGui
 
-
+task.spawn(function()
+while task.wait(0.1) do
+red.Image = "rbxassetid://94547864377343"
+wait()
+red.Image = "rbxassetid://76637426417491"
+end
+end)
 -- Animation script
+wait(0.4)
 local TweenService = game:GetService("TweenService")
 
 -- Define tween info
-local GetTimeSpeed = TweenInfo.new(0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+local GetTimeSpeed = TweenInfo.new(0.5)
 
 -- Create the animation
-local Anim = TweenService:Create(imageLabel, GetTimeSpeed, {Size = UDim2.new(0, 850, 0, 850)})
+local Anim = TweenService:Create(imageLabel, GetTimeSpeed, {Size = UDim2.new(0, 500, 0, 550)})
 
-
+local e = TweenService:Create(red, TweenInfo.new(0.8), {ImageTransparency = 0.3})
 
 local tran = TweenService:Create(imageLabel, GetTimeSpeed, {ImageTransparency = 0})
 
 
+task.spawn(function()
+while task.wait() do
+imageLabel.Rotation = 4
+task.wait()
+imageLabel.Rotation = -4
+end
+end)
+
 -- Play the animation
 Anim:Play()
 tran:Play()
+e:Play()
                 local scare = GetGitSound("https://github.com/Brololto/Angler-sounds/blob/main/lv_0_20241221185702.mp3?raw=true", "jr")
                 scare.Parent = workspace
-                scare.Volume = 5
+                scare.Volume = 2
                 scare:Play()
               
 
 
-spawn(function()
-while wait() do
-red.Position = UDim2.new(1, 0, 0.9, 0.9)
-red.Position = UDim2.new(0.5, 0, 0.5, 0)
-end
-end)
+
 
 
 
@@ -310,7 +332,7 @@ Anim.Completed:Wait()
 
 wait(0.3)
 imageLabel:Destroy()
-red:Destroy()
+red:Destroy() 
 local hum = game.Players.LocalPlayer.Character.Humanoid
 hum:TakeDamage(100)
 
@@ -325,26 +347,35 @@ end)
                 sound.Parent = entity
                 sound.Volume = 9
                 sound:Play()
-           entity.CFrame = currentRoom.RoomExit.CFrame * CFrame.new(0, 3, -29)
+           entity.CFrame = currentRoom.RoomExit.CFrame * CFrame.new(0, 3, -100)
                       
            task.wait(2)
+           local gooner = game.TweenService:Create(entity, TweenInfo.new(0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {CFrame = currentRoom.RoomExit.CFrame * CFrame.new(0, 3, 0)})
+           gooner:Play()
+          gooner.Completed:Wait()
+          wait(reboundelay)
             local mover = game.TweenService:Create(entity, TweenInfo.new(Reboundspeed), {CFrame = main.RoomExit.CFrame * CFrame.new(0, 2, 0)})
             mover:Play()
             mover.Completed:Wait()
+            wait(reboundelay)
             local rebound = game.TweenService:Create(entity, TweenInfo.new(Reboundspeed), {CFrame = no.RoomExit.CFrame * CFrame.new(0, 2, 0)})
             rebound:Play()
             rebound.Completed:Wait()
+            wait(reboundelay)
             local finished = game.TweenService:Create(entity, TweenInfo.new(Reboundspeed), {CFrame = go.RoomExit.CFrame * CFrame.new(0, 2, 0)})
             finished:Play()
             finished.Completed:Wait()
+            wait(reboundelay)
             local blah = game.TweenService:Create(entity, TweenInfo.new(Reboundspeed), {CFrame = en.RoomExit.CFrame * CFrame.new(0, 2, 0)})
             blah:Play()
             blah.Completed:Wait()
+            wait(reboundelay)
            local lah = game.TweenService:Create(entity, TweenInfo.new(Reboundspeed), {CFrame = ben.RoomExit.CFrame * CFrame.new(0, 2, 0)})
            lah:Play()
            lah.Completed:Wait()
+           wait(reboundelay)
            entity.Anchored = false
-           wait(1)
+           wait(reboundelay)
            s:Destroy()
 end
 
@@ -399,10 +430,10 @@ end
             camShake:Start()
             camShake:ShakeOnce(25, 10, 0, 5.5, 1, 0)
             
-            
+            task.spawn(function()
             task.wait(3)
             Move()
-            
+            end)
             local function Movee()
 
 if workspace:FindFirstChild("SeekMovingNewClone") 
@@ -480,75 +511,97 @@ local target = HumanoidRootPart
 local origin = monster.Position
 local direction = (target.Position - origin).Unit
 
-local ray = Ray.new(origin, direction * 30)
+local ray = Ray.new(origin, direction * 50)
 
 local raycast = workspace:Raycast(ray.Origin, ray.Direction)
    
      if raycast and raycast.Instance.Parent == character then
             if not character:GetAttribute("Hiding") then
             bye = true
+       wait(0.5)
        s:Destroy()
-       wait(0.2)
-local playerGui = player:WaitForChild("PlayerGui")
+                     local function GetGitSound(GithubSnd, SoundName)
+                local url = GithubSnd
+                if not isfile(SoundName .. ".mp3") then
+                    writefile(SoundName .. ".mp3", game:HttpGet(url))
+                end
+                local sound = Instance.new("Sound")
+                sound.SoundId = (getcustomasset or getsynasset)(SoundName .. ".mp3")
+                return sound
+            end
+            
+            local player = game.Players.LocalPlayer
+            local playerGui = player:WaitForChild("PlayerGui")
 
 
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "RandomImageGui"
 screenGui.Parent = playerGui
+screenGui.IgnoreGuiInset = true
 
 local red = Instance.new("ImageLabel")
-red.Size = UDim2.new(8, 8, 8, 8)
-red.AnchorPoint = Vector2.new(0.5, 0.5)-- Adjust size (30% of screen width and height)
-red.Position = UDim2.new(0.5, 0, 0.5, 0)
-red.BackgroundColor3 = Color3.fromRGB(173, 216, 230) 
+red.Size = UDim2.new(1, 0, 1, 0)
 red.BackgroundTransparency = 1 -- Make the background fully transparent
-red.Image = "rbxassetid://94547864377343" -- Set the image using a random Image ID
+red.Image = "rbxassetid://76637426417491" -- Set the image using a random Image ID
 red.ImageTransparency = 0
-red.ImageColor3 = Color3.new(0, 0, 0.9)
 red.Parent = screenGui
+red.ImageColor3 = Color3.new(0, 0, 0.9)
+
+
 
 -- Create the ImageLabel for displaying the image
 local imageLabel = Instance.new("ImageLabel")
-imageLabel.Size = UDim2.new(0, 0, 0, 0)
+imageLabel.Size = UDim2.new(0.883883832, 0, 0.8828229210, 0)
 imageLabel.AnchorPoint = Vector2.new(0.5, 0.5)-- Adjust size (30% of screen width and height)
 imageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
 imageLabel.BackgroundColor3 = Color3.new(1, 0, 0, 0) 
 imageLabel.BackgroundTransparency = 1 -- Make the background fully transparent
-imageLabel.Image = "rbxassetid://136184103476873"  -- Set the image using a random Image ID
+imageLabel.Image = "rbxassetid://74290193237446"  -- Set the image using a random Image ID
 imageLabel.ImageTransparency = 1
 imageLabel.Parent = screenGui
 
-
+task.spawn(function()
+while task.wait(0.1) do
+red.Image = "rbxassetid://94547864377343"
+wait()
+red.Image = "rbxassetid://76637426417491"
+end
+end)
 -- Animation script
+wait(0.4)
 local TweenService = game:GetService("TweenService")
 
 -- Define tween info
-local GetTimeSpeed = TweenInfo.new(0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+local GetTimeSpeed = TweenInfo.new(0.5)
 
 -- Create the animation
-local Anim = TweenService:Create(imageLabel, GetTimeSpeed, {Size = UDim2.new(0, 850, 0, 850)})
+local Anim = TweenService:Create(imageLabel, GetTimeSpeed, {Size = UDim2.new(0, 500, 0, 550)})
 
-
+local e = TweenService:Create(red, TweenInfo.new(0.8), {ImageTransparency = 0.3})
 
 local tran = TweenService:Create(imageLabel, GetTimeSpeed, {ImageTransparency = 0})
 
 
+task.spawn(function()
+while task.wait() do
+imageLabel.Rotation = 4
+task.wait()
+imageLabel.Rotation = -4
+end
+end)
+
 -- Play the animation
 Anim:Play()
 tran:Play()
+e:Play()
                 local scare = GetGitSound("https://github.com/Brololto/Angler-sounds/blob/main/lv_0_20241221185702.mp3?raw=true", "jr")
                 scare.Parent = workspace
-                scare.Volume = 5
+                scare.Volume = 2
                 scare:Play()
               
 
 
-spawn(function()
-while wait() do
-red.Position = UDim2.new(1, 0, 0.9, 0.9)
-red.Position = UDim2.new(0.5, 0, 0.5, 0)
-end
-end)
+
 
 
 
@@ -556,7 +609,7 @@ Anim.Completed:Wait()
 
 wait(0.3)
 imageLabel:Destroy()
-red:Destroy()
+red:Destroy() 
 local hum = game.Players.LocalPlayer.Character.Humanoid
 hum:TakeDamage(100)
 
@@ -579,17 +632,24 @@ end)
                 sound.Parent = entity
                 sound.Volume = 9
                 sound:Play()
-           entity.CFrame = currentRoom.RoomExit.CFrame * CFrame.new(0, 3, -29)
+           entity.CFrame = currentRoom.RoomExit.CFrame * CFrame.new(0, 3, -100)
            task.wait(2)
-            local mover = game.TweenService:Create(entity, TweenInfo.new(Reboundspeed), {CFrame = main.RoomExit.CFrame * CFrame.new(0, 2, 0)})
+           local gooner = game.TweenService:Create(entity, TweenInfo.new(0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {CFrame = currentRoom.RoomExit.CFrame * CFrame.new(0, 3, 0)})
+           gooner:Play()
+          gooner.Completed:Wait()
+          wait(reboundelay)
+      local mover = game.TweenService:Create(entity, TweenInfo.new(Reboundspeed), {CFrame = main.RoomExit.CFrame * CFrame.new(0, 2, 0)})
             mover:Play()
             mover.Completed:Wait()
+            wait(reboundelay)
             local rebound = game.TweenService:Create(entity, TweenInfo.new(Reboundspeed), {CFrame = no.RoomExit.CFrame * CFrame.new(0, 2, 0)})
             rebound:Play()
             rebound.Completed:Wait()
+            wait(reboundelay)
             local finished = game.TweenService:Create(entity, TweenInfo.new(Reboundspeed), {CFrame = go.RoomExit.CFrame * CFrame.new(0, 2, 0)})
             finished:Play()
             finished.Completed:Wait()
+            wait(reboundelay)
             local blah = game.TweenService:Create(entity, TweenInfo.new(Reboundspeed), {CFrame = en.RoomExit.CFrame * CFrame.new(0, 2, 0)})
             blah:Play()
             blah.Completed:Wait()
@@ -597,17 +657,20 @@ end)
            lah:Play()
            lah.Completed:Wait()
            entity.Anchored = false
-           wait(1)
+           wait(reboundelay)
            s:Destroy()
 end
             
 local maxrebounds = 3
 
 for i = 1, maxrebounds do
-wait(5)
+wait(4.5)
 game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
 Movee()
 end
+
+
+
 end
 end)
 
@@ -705,32 +768,36 @@ crash.Volume = 4
 crash.Parent = workspace
 crash:Play()
 wait(1)
-local player = game.Players.LocalPlayer
-local playerGui = player:WaitForChild("PlayerGui")
+            local player = game.Players.LocalPlayer
+            local playerGui = player:WaitForChild("PlayerGui")
 
--- Create the ScreenGui
+
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "RandomImageGui"
 screenGui.Parent = playerGui
+screenGui.IgnoreGuiInset = true
 
 local red = Instance.new("ImageLabel")
-red.Size = UDim2.new(3, 3, 3, 3)
-red.AnchorPoint = Vector2.new(0.5, 0.5)-- Adjust size (30% of screen width and height)
-red.Position = UDim2.new(0.5, 0, 0.5, 0)
-red.BackgroundColor3 = Color3.fromRGB(173, 216, 230) 
+red.Size = UDim2.new(1, 0, 1, 0)
 red.BackgroundTransparency = 1 -- Make the background fully transparent
 red.Image = "rbxassetid://76637426417491" -- Set the image using a random Image ID
 red.ImageTransparency = 1
 red.Parent = screenGui
-                TweenService:Create(red, TweenInfo.new(0.5), {ImageTransparency = 0}):Play()
 
-spawn(function()
-while wait() do
-red.Position = UDim2.new(1, 0, 0.9, 0.9)
+
+
+
+
+
+task.spawn(function()
+while task.wait(0.1) do
+red.Image = "rbxassetid://94547864377343"
 wait()
-red.Position = UDim2.new(0.5, 0, 0.5, 0)
+red.Image = "rbxassetid://76637426417491"
 end
 end)
+                TweenService:Create(red, TweenInfo.new(0.5), {ImageTransparency = 0}):Play()
+
 wait(2)
                 local hum = game.Players.LocalPlayer.Character.Humanoid
                 hum:TakeDamage(100)
