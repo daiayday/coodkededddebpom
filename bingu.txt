@@ -1202,33 +1202,49 @@ RunService.Heartbeat:Connect(function()
 end)
 
 local rooms = workspace.CurrentRooms
+
+                        local romer = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value - 5)
+                                                local pproom = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value - 4)
+                                                        local previousroom = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value - 3)
+                                                                              local reviousroom = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value - 2)
+                                                                                                    local peviousroom = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value - 1)
 local currentroom = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value)
 local currentroom2 = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value + 1)
 
 
-                        local romer = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value - 2)
+                       
                         local cheese = game.TweenService:Create(ambush, TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {Position = romer.RoomEntrance.Position + Vector3.new(0, 1, 0)})
                         cheese:Play()
+                        cheese.Completed:Wait()
 
+                        local cheeser = game.TweenService:Create(ambush, TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {Position = pproom.RoomEntrance.Position + Vector3.new(0, 1, 0)})
+cheeser:Play()
+cheeser.Completed:Wait()
 
+                        local kiss = game.TweenService:Create(ambush, TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {Position = previousroom.RoomEntrance.Position + Vector3.new(0, 1, 0)})
+kiss:Play()
+kiss.Completed:Wait()
 
-task.wait(3)
+                        local han = game.TweenService:Create(ambush, TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {Position = reviousroom.RoomEntrance.Position + Vector3.new(0, 1, 0)})
+han:Play()
+han.Completed:Wait()
+
+                        local shit = game.TweenService:Create(ambush, TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {Position = peviousroom.RoomEntrance.Position + Vector3.new(0, 1, 0)})
+shit:Play()
+shit.Completed:Wait()
+
+                        local pls = game.TweenService:Create(ambush, TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {Position = currentroom.RoomEntrance.Position + Vector3.new(0, 1, 0)})
+pls:Play()
+pls.Completed:Wait()
+
+                        local dez = game.TweenService:Create(ambush, TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {Position = currentroom2.RoomEntrance.Position + Vector3.new(0, 1, 0)})
+dez:Play()
+dez.Completed:Wait()
+
 
 
                task.wait(0.8)
-                        task.wait(1)
-        local previousroom = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value - 1)
-        local pproom = rooms:FindFirstChild(game.ReplicatedStorage.GameData.LatestRoom.Value)
-                local akejays = game.TweenService:Create(ambush, TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {Position = previousroom.RoomEntrance.Position + Vector3.new(0, 1, 0)})
-                akejays:Play()
-              akejays.Completed:Wait()
-
-         local makejays = game.TweenService:Create(ambush,TweenInfo.new(1), {CFrame = pproom.RoomEntrance.CFrame * CFrame.new(0, 1, 0)})     
-         makejays:Play()
-      makejays.Completed:Wait()
-   local fakejays = game.TweenService:Create(ambush, TweenInfo.new(2, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {CFrame = currentroom2.RoomEntrance.CFrame * CFrame.new(0, 1, 0)})
-        fakejays:Play()
-        fakejays.Completed:Wait()
+                        task.wait(1)  
         ambush.CanCollide = false
         ambush.Anchored = false
         wait(1)
