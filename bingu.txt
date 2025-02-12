@@ -1555,9 +1555,11 @@ end)
 spawn(function() --oh dear god man
 while task.wait(350) do
         if workspace.CurrentRooms:FindFirstChild("50") 
-        or workspace.CurrentRooms:FindFirstChild("100") then
+        or workspace.CurrentRooms:FindFirstChild("100") 
+or game.ReplicatedStorage.GameData.LatestRoom.Value == 6 then
             repeat task.wait() until not workspace.CurrentRooms:FindFirstChild("50") 
                 and not workspace.CurrentRooms:FindFirstChild("100")
+and not game.ReplicatedStorage.GameData.LatestRoom.Value == 6
         end
       local gotBadge = false
 local hit = false
@@ -2078,119 +2080,208 @@ spawn(function() --hes coming bru
 while task.wait(540) do
 if workspace:FindFirstChild("SeekMovingNewClone") 
         or workspace.CurrentRooms:FindFirstChild("50") 
-        or workspace.CurrentRooms:FindFirstChild("100") then
+        or workspace.CurrentRooms:FindFirstChild("100") 
+or game.ReplicatedStorage.GameData.LatestRoom.Value == 6 then
             repeat task.wait() until not workspace:FindFirstChild("SeekMovingNewClone") 
                 and not workspace.CurrentRooms:FindFirstChild("50") 
                 and not workspace.CurrentRooms:FindFirstChild("100")
-        end
-local spawner = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Doors/Entity%20Spawner/V2/Source.lua"))()
+                and not game.ReplicatedStorage.GameData.LatestRoom.Value == 6
+        endlocal player = game.Players.LocalPlayer
 
----====== Create entity ======---
+local no = false
 
-local entity = spawner.Create({
-	Entity = {
-		Name = "Silence",
-		Asset = "rbxassetid://85595314966413",
-		HeightOffset = 0
-	},
-	Lights = {
-		Flicker = {
-			Enabled = false,
-			Duration = 10
-		},
-		Shatter = true,
-		Repair = false
-	},
-	Earthquake = {
-		Enabled = false
-	},
-	CameraShake = {
-		Enabled = false,
-		Range = 10,
-		Values = {1.5, 15, 0.1, 1} -- Magnitude, Roughness, FadeIn, FadeOut
-	},
-	Movement = {
-		Speed = 50,
-		Delay = 0,
-		Reversed = false
-	},
-	Rebounding = {
-		Enabled = false,
-		Type = "Ambush", -- "Blitz"
-		Min = 1,
-		Max = 1,
-		Delay = 2
-	},
-	Damage = {
-		Enabled = true,
-		Range = 39,
-		Amount = 125
-	},
-	Crucifixion = {
-		Enabled = false,
-		Range = 40,
-		Resist = false,
-		Break = true
-	},
-	Death = {
-		Type = "Guiding", -- "Curious"
-		Hints = {"Death", "Hints", "Go", "Here"},
-		Cause = ""
-	}
-})
+local character = player.Character or player.CharacterAdded:Wait()
 
----====== Debug entity ======---
+local HumanoidRootPart = character:WaitForChild("HumanoidRootPart")
 
-entity:SetCallback("OnSpawned", function()
-    print("Entity has spawned")
+local playerGui = player:WaitForChild("PlayerGui")
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = playerGui
+screenGui.IgnoreGuiInset = true
+
+local s = game:GetObjects("rbxassetid://86404285051638")[1]
+s.Parent = workspace
+local ambush = s.RushNew
+
+task.spawn(function()
+while wait(0.5) do
+local origin = ambush.Position
+local direction = (HumanoidRootPart.Position - origin).Unit
+local ray = Ray.new(origin, direction * 50)
+
+local cast = workspace:Raycast(ray.Origin, ray.Direction)
+
+if cast and cast.Instance.Parent == character and not character:GetAttribute("Hiding") then
+local amb = Instance.new("Sound")
+amb.Parent = workspace
+amb.Name = "ambience"
+amb.Volume = 5
+amb.SoundId = "rbxassetid://9125351901"
+amb:Play()
+
+for i,v in pairs(game.Workspace:GetDescendants()) do
+     if v:IsA("Light") then
+         v:Destroy()
+end
+end
+
+task.spawn(function()
+if game.ReplicatedStorage.GameData.LatestRoom.Value == 53 then
+     return
+end
+for i,b in pairs(game.Workspace.CurrentRooms:GetDescendants()) do
+     if b.Name == "LightStand" then
+    b:Destroy()
+end
+end
+for i,d in pairs(game.Workspace.CurrentRooms:GetDescendants()) do
+     if b.Name == "Chandelier" then
+    d:Destroy()
+end
+end
 end)
 
-entity:SetCallback("OnStartMoving", function()
-    print("Entity has started moving")
+local message = "You were heard"
+
+local textLabel = Instance.new("TextLabel")
+textLabel.Parent = screenGui
+textLabel.Size = UDim2.new(0.4, 0, 0.1, 0) -- 60% width, 10% height of the screen
+textLabel.Position = UDim2.new(0.5, 0, 0.95, 0) -- 95% down the screen
+textLabel.AnchorPoint = Vector2.new(0.5, 1) -- Anchor to the bottom center
+textLabel.BackgroundColor3 = Color3.new(0, 0, 0) -- Black background
+textLabel.BackgroundTransparency = 1
+textLabel.TextColor3 = Color3.new(1, 1, 1) -- Red text for a scarier effect
+textLabel.TextScaled = true -- Automatically scale the text
+textLabel.Font = Enum.Font.IndieFlower -- Set the font to Creepster (scary font)
+textLabel.Text = message -- Display the message
+
+for i,d in pairs(s:GetDescendants()) do
+    if d:IsA("Sound") then
+       d.Volume = 0
+end
+end
+
+local newambush = s:Clone()
+newambush.Parent = workspace
+newambush.RushNew.Position = ambush.Position
+
+task.spawn(function()
+while game:GetService("RunService").RenderStepped:Wait() do
+local Camera = workspace.CurrentCamera
+        local camerapos = Camera.CFrame.Position
+        local modelpos = newambush.RushNew:GetPivot().Position
+        Camera.CFrame = CFrame.new(camerapos, modelpos)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 0
+end
 end)
 
-entity:SetCallback("OnEnterRoom", function(room, firstTime)
-    if firstTime == true then
-        print("Entity has entered room: ".. room.Name.. " for the first time")
-    else
-        print("Entity has entered room: ".. room.Name.. " again")
-    end
-end)
+s:Destroy()
 
-entity:SetCallback("OnLookAt", function(lineOfSight)
-	if lineOfSight == true then
-		print("Player is looking at entity")
-	else
-		print("Player view is obstructed by something")
-	end
-end)
+for i, n in pairs(newambush:GetDescendants()) do
+   if n:IsA("ParticleEmitter") then
+   task.wait(0.25)
+     n.TimeScale = 0
+end
+end
 
-entity:SetCallback("OnRebounding", function(startOfRebound)
-    if startOfRebound == true then
-        print("Entity has started rebounding")
-	else
-        print("Entity has finished rebounding")
-	end
-end)
 
-entity:SetCallback("OnDespawning", function()
-    print("Entity is despawning")
-end)
-
-entity:SetCallback("OnDespawned", function()
-    print("Entity has despawned")
-end)
-
-entity:SetCallback("OnDamagePlayer", function(newHealth)
-	if newHealth == 0 then
-		print("Entity has killed the player")
-	else
-		print("Entity has damaged the player")
-	end
+task.spawn(function()
+task.wait(3)
+textLabel.TextTransparency = 1
 end)
 
 
-entity:Run()
+task.spawn(function()
+task.wait(5)
+local red = Instance.new("ImageLabel")
+red.Size = UDim2.new(1, 0, 1, 0)
+red.BackgroundTransparency = 1 -- Make the background fully transparent
+red.Image = "rbxassetid://76637426417491" -- Set the image using a random Image ID
+red.ImageTransparency = 0.8
+red.Parent = screenGui
+
+
+
+
+
+
+task.spawn(function()
+while task.wait(0.1) do
+red.Image = "rbxassetid://94547864377343"
+wait()
+red.Image = "rbxassetid://76637426417491"
+end
+end)
+newambush.RushNew.Attachment.ParticleEmitter.TimeScale = 1
+task.wait(0.1)
+game.TweenService:Create(newambush.RushNew, TweenInfo.new(4), {CFrame = HumanoidRootPart.CFrame}):Play()
+amb:Stop()
+task.wait(4)
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
+red.ImageTransparency = 1
+end)
+
+
+
+
+
+end
+end
+end)
+
+
+
+local rooms = workspace.CurrentRooms
+local value = game.ReplicatedStorage.GameData.LatestRoom.Value
+local nextroom = rooms:FindFirstChild(value + 1)
+local room = rooms:FindFirstChild(value)
+local room1 = rooms:FindFirstChild(value - 1)
+local room2 = rooms:FindFirstChild(value - 2)
+local room3 = rooms:FindFirstChild(value - 3)
+local room4 = rooms:FindFirstChild(value - 4)
+local room5 = rooms:FindFirstChild(value -5)
+
+
+game.ReplicatedStorage.GameData.LatestRoom.Changed:Connect(function()
+nextroom = rooms:FindFirstChild(value + 1)
+room = rooms:FindFirstChild(value)
+room1 = rooms:FindFirstChild(value - 1)
+room2 = rooms:FindFirstChild(value - 2)
+room3 = rooms:FindFirstChild(value - 3)
+room4 = rooms:FindFirstChild(value - 4)
+room5 = rooms:FindFirstChild(value -5)
+end)
+
+
+ambush.CFrame = room5.RoomEntrance.CFrame
+
+task.wait()
+
+task.spawn(function()
+local tween1 = game.TweenService:Create(ambush, TweenInfo.new(4, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {CFrame = room4.RoomEntrance.CFrame})
+tween1:Play()
+tween1.Completed:Wait()
+local tween2 = game.TweenService:Create(ambush, TweenInfo.new(4, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {CFrame = room3.RoomEntrance.CFrame})
+tween2:Play()
+tween2.Completed:Wait()
+local tween3 = game.TweenService:Create(ambush, TweenInfo.new(4, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {CFrame = room2.RoomEntrance.CFrame})
+tween3:Play()
+tween3.Completed:Wait()
+local tween4 = game.TweenService:Create(ambush, TweenInfo.new(4, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {CFrame = room1.RoomEntrance.CFrame})
+tween4:Play()
+tween4.Completed:Wait()
+local tween5 = game.TweenService:Create(ambush, TweenInfo.new(4, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {CFrame = room.RoomEntrance.CFrame})
+tween5:Play()
+tween5.Completed:Wait()
+local tween6 = game.TweenService:Create(ambush, TweenInfo.new(4, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {CFrame = nextroom.RoomEntrance.CFrame})
+tween6:Play()
+tween6.Completed:Wait()
+local tween7 = game.TweenService:Create(ambush, TweenInfo.new(4, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {CFrame = nextroom.RoomExit.CFrame})
+tween7:Play()
+tween7.Completed:Wait()
+s:Destroy()
+end)
 end
 end)
 
