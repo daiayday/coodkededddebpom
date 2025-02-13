@@ -1112,11 +1112,10 @@ end
 
 
 local s = game:GetObjects("rbxassetid://121128782273259")[1]
-s.Parent = workspace
+s.Parent = game.Workspace
 if not s.PrimaryPart then
    s.PrimaryPart = s:FindFirstChildWhichIsA("BasePart")
 end
-task.wait(0.1)
 local ambush = s.PrimaryPart
 ambush.CanCollide = true
 ambush.Anchored = true
