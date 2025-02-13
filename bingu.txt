@@ -2102,7 +2102,8 @@ or game.ReplicatedStorage.GameData.LatestRoom.Value == 6 then
                 and not workspace.CurrentRooms:FindFirstChild("50") 
                 and not workspace.CurrentRooms:FindFirstChild("100")
                 and not game.ReplicatedStorage.GameData.LatestRoom.Value == 6
-        endlocal player = game.Players.LocalPlayer
+        end
+local player = game.Players.LocalPlayer
 
 local no = false
 
